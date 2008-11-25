@@ -4,9 +4,9 @@
 </head>
 <body>
     <h1>
-    <%php
+    <?php
     echo "welcome";
-    %>
+    ?>
     </h1>
 </body>
 </html>
