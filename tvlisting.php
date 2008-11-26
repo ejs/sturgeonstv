@@ -16,21 +16,15 @@
     <title>Just testing</title>
 </head>
 <body>
-    <h1><?php
-    echo $databaseuser;
-    ?></h1>
-    <h2><?php
-        echo $databasename;
-    ?></h2>
-    <h3><?php
-        echo $logfile;
-    ?></h3>
-    <ol>
-<?php
-        foreach(get_all_channels() as $channelData){
-            echo "        <li><a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a></li>\n";
-        }
-    ?>
-    </ol>
+    <div id="sidebar">
+        <p><a href="">Register</a> or <a href="">Login</a></p>
+        <ul>
+    <?php
+            foreach(get_all_channels() as $channelData){
+                echo "            <li><a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a></li>\n";
+            }
+        ?>
+        </ul>
+    </div>
 </body>
 </html>
