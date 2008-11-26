@@ -1,0 +1,43 @@
+
+/* sidebar */
+#sidebar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 10em;
+    height: 100%;
+    background: #000;
+}
+
+#sidebar p{
+    color: #fff;
+}
+
+#sidebar p a{
+    color: #888;
+    text-decoration: none;
+}
+
+#sidebar p a:hover{
+    color: #bbb;
+    text-decoration: underline;
+}
+
+#sidebar ul{
+    list-style: none inside;
+}
+
+#sidebar ul li a{
+    color: #444;
+    text-decoration: none;
+}
+
+#sidebar ul li:active a{
+    color: #bbb;
+    text-decoration: none;
+}
+
+#sidebar ul li a:hover{
+    color: #888;
+    text-decoration: none;
+}

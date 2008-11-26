@@ -14,6 +14,7 @@
 <html>
 <head>
     <title>Just testing</title>
+    <link rel="stylesheet" type="text/css" href="tvphp.css" />
 </head>
 <body>
     <div id="sidebar">
