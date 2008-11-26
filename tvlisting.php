@@ -9,7 +9,9 @@
         fclose($sink);
     }
 
-    log_message_to_file("Attempted use.")
+    log_message_to_file("Attempted use.");
+    session_start();
+    $_SESSION['counter']++;
 ?>
 <html>
 <head>
@@ -19,6 +21,7 @@
 <body>
     <div id="sidebar">
         <p><a href="">Register</a> or <a href="">Login</a></p>
+        <p><?php echo $_SESSION['counter'] ?></p>
         <ul>
     <?php
             foreach(get_all_channels() as $channelData){
