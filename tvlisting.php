@@ -1,5 +1,6 @@
 <?php
-    require("config.php");
+    require_once("config.php");
+    require_once("models.php");
 
     function log_message_to_file($message){
         global $logfile;
@@ -24,5 +25,12 @@
     <h3><?php
         echo $logfile;
     ?></h3>
+    <ol>
+<?php
+        foreach(get_all_channels() as $channelData){
+            echo "        <li><a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a></li>\n";
+        }
+    ?>
+    </ol>
 </body>
 </html>

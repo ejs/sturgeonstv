@@ -1,4 +1,5 @@
 <?php
+    $databaseserver = '';
     $databasename = 'tvphp';
     $databaseuser = 'tvphp';
     $databasepassword = 'password';
