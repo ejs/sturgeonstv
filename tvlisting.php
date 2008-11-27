@@ -12,6 +12,7 @@
     log_message_to_file("Attempted use.");
     session_start();
     $_SESSION['counter']++;
+    $client = new User;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -25,7 +26,7 @@
         <p><?php echo $_SESSION['counter'] ?></p>
         <ul>
 <?php
-            foreach(get_all_channels() as $channelData){
+            foreach($client->channels as $channelData){
                 if ($channelData['default?'] == 1){
                     echo "            <li class='active'>";
                 }

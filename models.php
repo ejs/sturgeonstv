@@ -23,4 +23,11 @@
         }
     }
 
+    class User {
+        public $channels;
+
+        public function __construct(){
+            $this->channels = get_all_channels();
+        }
+    }
 ?>
