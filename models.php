@@ -10,8 +10,8 @@
         if (mysql_num_rows($result) > 0) {
             $answer = array();
             while($row = mysql_fetch_row($result)) {
-                if ($row[2] > 0){
-                    $data = array("ChannelName"=>$row[0], "URL"=>$row[1], "default?"=>$row[3]);
+                if ($row[3] >= 0){
+                    $data = array("ChannelName"=>$row[0], "URL"=>$row[1], "default?"=>$row[2]);
                     array_push($answer, $data);
                 }
             }
