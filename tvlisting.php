@@ -11,7 +11,6 @@
 
     log_message_to_file("Attempted use.");
     session_start();
-    $_SESSION['counter']++;
     $client = new User;
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -23,7 +22,6 @@
 <body>
     <div id="sidebar">
         <p><a href="">Register</a> or <a href="">Login</a></p>
-        <p><?php echo $_SESSION['counter'] ?></p>
         <ul>
 <?php
             foreach($client->channels as $channelData){
@@ -33,11 +31,12 @@
                 else{
                     echo "            <li class='inactive'>";
                 }
-                echo "                <a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a>\n";
+                echo "\n                <a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a>\n";
                 echo "            </li>\n";
             }
         ?>
         </ul>
+        <p><?php echo $client->visit_count; ?></p>
     </div>
     <div id="infobar">
         <ul>
