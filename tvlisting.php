@@ -21,7 +21,14 @@
 </head>
 <body>
     <div id="sidebar">
-        <p><a href="">Register</a> or <a href="">Login</a></p>
+        <p><?php
+            if ($client->name){
+                echo '<a href="">'.$client->name.'</a>';
+            }
+            else{
+                echo '<a href="">Register</a> or <a href="">Login</a>';
+            }
+        ?></p>
         <ul>
 <?php
             foreach($client->channels as $channelData){

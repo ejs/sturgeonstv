@@ -26,11 +26,13 @@
     class User {
         public $channels;
         public $visit_count;
+        public $name;
 
         public function __construct(){
             if ($_SESSION['channels']){
                 $this->channels = $_SESSION['channels'];
                 $this->channels[0]['default?'] = 0;
+                $this->name = "Frank";
             }
             else{
                 $this->channels = get_all_channels();
