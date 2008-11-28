@@ -2,7 +2,11 @@
     require_once('config.php');
 
     mysql_connect($databaseserver, $databaseuser, $databasepassword);
-    mysql_select_db($databasename) or die ("Unable to select database!"); ;
+    mysql_select_db($databasename) or die ("Unable to select database!");
+
+    function validate($username, $password){
+        return 1;
+    }
 
     function get_all_channels(){
         $query = "SELECT channelName, url, standard, storeddays FROM channel;";
@@ -10,7 +14,7 @@
         if (mysql_num_rows($result) > 0) {
             $answer = array();
             while($row = mysql_fetch_row($result)) {
-                if ($row[3] >= 0){
+                if ($row[3] >= 0) {
                     $data = array("ChannelName"=>$row[0], "URL"=>$row[1], "default?"=>$row[2]);
                     array_push($answer, $data);
                 }
@@ -35,7 +39,6 @@
         public function __construct(){
             $this->load_channels();
             $this->visit_count = ++$_SESSION['counter'];
-            $_SESSION['channels'] = $this->channels;
         }
     }
 
@@ -49,6 +52,7 @@
             else{
                 $this->channels = get_all_channels();
             }
+            $_SESSION['channels'] = $this->channels;
         }
     }
 ?>
