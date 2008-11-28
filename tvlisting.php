@@ -11,7 +11,7 @@
 
     log_message_to_file("Attempted use.");
     session_start();
-    $client = new User;
+    $client = load_user();
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>

@@ -23,12 +23,24 @@
         }
     }
 
+    function load_user(){
+        return new SessionUser();
+    }
+
     class User {
         public $channels;
         public $visit_count;
         public $name;
 
         public function __construct(){
+            $this->load_channels();
+            $this->visit_count = ++$_SESSION['counter'];
+            $_SESSION['channels'] = $this->channels;
+        }
+    }
+
+    class SessionUser extends User{
+        public function load_channels(){
             if ($_SESSION['channels']){
                 $this->channels = $_SESSION['channels'];
                 $this->channels[0]['default?'] = 0;
@@ -37,8 +49,6 @@
             else{
                 $this->channels = get_all_channels();
             }
-            $this->visit_count = ++$_SESSION['counter'];
-            $_SESSION['channels'] = $this->channels;
         }
     }
 ?>
