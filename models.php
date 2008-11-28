@@ -4,13 +4,6 @@
     mysql_connect($databaseserver, $databaseuser, $databasepassword);
     mysql_select_db($databasename) or die ("Unable to select database!");
 
-    function validate($username, $password){
-        $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = PASSWORD("'.$password.'");';
-        $result = mysql_query($query) or die("Sorry dB error");
-        return ($result->numRows() > 0);
-        # True on valid, false on invalid
-    }
-
     function get_all_channels(){
         $query = "SELECT channelName, url, standard, storeddays FROM channel;";
         $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
