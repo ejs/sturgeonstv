@@ -7,7 +7,8 @@
     function validate($username, $password){
         $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = PASSWORD("'.$password.'");';
         $result = mysql_query($query) or die("Sorry dB error");
-        return ($result->numRows() < 1);
+        return ($result->numRows() > 0);
+        # True on valid, false on invalid
     }
 
     function get_all_channels(){
