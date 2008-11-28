@@ -5,7 +5,9 @@
     mysql_select_db($databasename) or die ("Unable to select database!");
 
     function validate($username, $password){
-        return 1;
+        $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = PASSWORD("'.$password.'");';
+        $result = mysql_query($query) or die("Sorry dB error");
+        return ($result->numRows() < 1);
     }
 
     function get_all_channels(){
