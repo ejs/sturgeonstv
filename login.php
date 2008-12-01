@@ -16,9 +16,9 @@
     $password = $_POST['password'];
 
     function validate($username, $password){
-        $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = SHA1("'.$password.'");';
+        $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = SHA1("'.$password.'")';
         $result = mysql_query($query) or die("Sorry dB error");
-        return ($result->numRows() > 0);
+        return (mysql_num_rows($result) > 0);
         # True on valid, false on invalid
     }
 
