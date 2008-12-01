@@ -24,7 +24,12 @@
     }
 
     function load_user(){
-        return new SessionUser();
+        if ($_COOKIE and array_key_exists("validuser", $_COOKIE)){
+            return new DBUser($_COOKIE["validuser"]);
+        }
+        else{
+            return new SessionUser();
+        }
     }
 
     class User {
@@ -38,16 +43,20 @@
         }
     }
 
+    class DBUser extends User{
+        public function __construct($name){
+            parent::__construct();
+            $this->name = $name;
+        }
+
+        public function load_channels(){
+            $this->channels = get_all_channels();
+        }
+    }
+
     class SessionUser extends User{
         public function load_channels(){
-            if ($_SESSION['channels']){
-                $this->channels = $_SESSION['channels'];
-                $this->channels[0]['default?'] = 0;
-                $this->name = "Frank";
-            }
-            else{
-                $this->channels = get_all_channels();
-            }
+            $this->channels = get_all_channels();
             $_SESSION['channels'] = $this->channels;
         }
     }
