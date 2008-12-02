@@ -26,7 +26,15 @@
                 echo '<a href="">'.$client->name.'</a>';
             }
             else{
-                echo '<a href="">Register</a> or <a href="">Login</a>';
+                echo '<a href="">Register</a>';
+            }
+        ?></p>
+        <p><?php
+            if ($client->name){
+                echo '<a href="logout.php">Logout</a>';
+            }
+            else{
+                echo '<a href="login.php">Login</a>';
             }
         ?></p>
         <ul>
