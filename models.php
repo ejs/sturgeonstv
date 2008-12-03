@@ -19,14 +19,14 @@
         public $name;
 
         public function __construct(){
-            $this->load_channels();
             $this->update();
+            $this->load_channels();
             $this->visit_count = ++$_SESSION['counter'];
         }
 
         public function update(){
             if ($_GET){
-                $this->setChannel($_GET["channel"], $_GET["to"]);
+                $this->setChannel($_GET["channel"], $_GET["to"] == "on");
             }
         }
     }
@@ -54,32 +54,44 @@
             }
         }
 
-        public function setChannel($ChannelName, $to){
-            $state = $to == "on";
+        public function setChannel($ChannelName, $state){
             $query = "UPDATE userchannels SET state='".$state."' WHERE username = '".$this->name."' AND channelname = '".$ChannelName."'";
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
         }
     }
 
     class SessionUser extends User{
         public function load_channels(){
-            $query = "SELECT channelName, standard, storeddays FROM channel;";
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
-            if (mysql_num_rows($result) > 0) {
-                $answer = array();
-                while($row = mysql_fetch_row($result)) {
-                    if ($row[2] >= 0) {
-                        $data = array("ChannelName"=>$row[0], "URL"=>"", "default?"=>$row[1]);
-                        array_push($answer, $data);
-                    }
-                }
-                mysql_free_result($result);
-                $this->channels = $answer;
+            if($_SESSION['channels']){
+                $this->channels = $_SESSION['channels'];
             }
             else{
-                $this->channels = array();
+                $query = "SELECT channelName, standard, storeddays FROM channel;";
+                $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                if (mysql_num_rows($result) > 0) {
+                    $answer = array();
+                    while($row = mysql_fetch_row($result)) {
+                        if ($row[2] >= 0) {
+                            $data = array("ChannelName"=>$row[0], "URL"=>"", "default?"=>$row[1]);
+                            array_push($answer, $data);
+                        }
+                    }
+                    mysql_free_result($result);
+                    $this->channels = $answer;
+                }
+                else{
+                    $this->channels = array();
+                }
+                $_SESSION['channels'] = $this->channels;
             }
-            $_SESSION['channels'] = $this->channels;
+        }
+
+        public function setChannel($ChannelName, $state){
+            foreach($_SESSION['channels'] as $key=>$info){
+                if ($info['ChannelName'] == $ChannelName){
+                    $_SESSION['channels'][$key]['default?'] = $state;
+                }
+            }
         }
     }
 ?>
