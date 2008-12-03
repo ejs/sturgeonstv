@@ -20,7 +20,14 @@
 
         public function __construct(){
             $this->load_channels();
+            $this->update();
             $this->visit_count = ++$_SESSION['counter'];
+        }
+
+        public function update(){
+            if ($_GET){
+                $this->setChannel($_GET["channel"], $_GET["to"]);
+            }
         }
     }
 
@@ -45,6 +52,12 @@
             else{
                 $this->channels = array();
             }
+        }
+
+        public function setChannel($ChannelName, $to){
+            $state = $to == "on";
+            $query = "UPDATE userchannels SET state='".$state."' WHERE username = '".$this->name."' AND channelname = '".$ChannelName."'";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
         }
     }
 

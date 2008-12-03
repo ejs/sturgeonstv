@@ -42,11 +42,12 @@
             foreach($client->channels as $channelData){
                 if ($channelData['default?'] == 1){
                     echo "            <li class='active'>";
+                    echo "\n                <a href='switch.php?to=off&channel=".$channelData["ChannelName"]."'>".$channelData["ChannelName"]."</a>\n";
                 }
                 else{
                     echo "            <li class='inactive'>";
+                    echo "\n                <a href='switch.php?to=on&channel=".$channelData["ChannelName"]."'>".$channelData["ChannelName"]."</a>\n";
                 }
-                echo "\n                <a href='".$channelData['URL']."'>".$channelData["ChannelName"]."</a>\n";
                 echo "            </li>\n";
             }
         ?>
