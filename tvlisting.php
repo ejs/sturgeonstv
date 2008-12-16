@@ -42,7 +42,7 @@
                 echo '<a href="">'.$client->name.'</a>';
             }
             else{
-                echo '<a href="">Register</a>';
+                echo '<a href="register.php">Register</a>';
             }
         ?></p>
         <p><?php
