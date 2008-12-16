@@ -21,7 +21,7 @@
         echo "        </tr>\n";
         foreach($client->getShows($start, $end) as $showinfo){
             echo "            <tr class='Show'>\n";
-            echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])."</td>\n";
+            echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
             echo "                <td>".$showinfo["Channel Name"]."</td>\n";
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
             echo "            </tr>\n";
@@ -80,9 +80,15 @@
         </div>
         <div id="body">
             <table id="ShowInformation" align="center" cellspacing="20"><?php
-                layout_shows(-1, 0, "Shows currently on");
-                layout_shows(0, 2, "Shows on soon");
-                layout_shows(2, 24, "Shows on Later");
+                $a = "'".date("Y-m-d H:i:s", time())."' < endtime ";
+                $b = "starttime < '".date("Y-m-d H:i:s", time())."' ";
+                layout_shows($a, $b, "Shows currently on");
+                $a = "'".date("Y-m-d H:i:s", time())."' < starttime ";
+                $b = "starttime < '".date("Y-m-d H:i:s", time()+(2*60*60))."' ";
+                layout_shows($a, $b, "Shows on soon");
+                $a = "'".date("Y-m-d H:i:s", time()+(2*60*60))."' < starttime ";
+                $b = "starttime < '".date("Y-m-d H:i:s", time()+(24*60*60))."' ";
+                layout_shows($a, $b, "Shows on Later");
             ?>
             </table>
         </div>

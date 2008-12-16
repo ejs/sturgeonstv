@@ -38,16 +38,14 @@
                 }
             }
             $channellist = implode("', '", $channellist);
-            $query = "SELECT showname, starttime, channelname FROM tvshowinstance ";
-            $a = date("Y-m-d H:i:s", time()+($start*60*60));
-            $b = date("Y-m-d H:i:s", time()+($end*60*60));
-            $query = $query." WHERE channelname IN ('".$channellist."') AND '".$a."' < starttime AND starttime < '".$b."' ";
+            $query = "SELECT showname, starttime, channelname, endtime FROM tvshowinstance";
+            $query = $query." WHERE channelname IN ('".$channellist."') AND ".$start." AND ".$end." ";
             $query = $query." ORDER BY starttime;";
             $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
             $answer = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
-                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "Channel Name"=>$row[2]);
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2]);
                     array_push($answer, $data);
                 }
                 mysql_free_result($result);
