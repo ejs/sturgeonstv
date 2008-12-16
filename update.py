@@ -52,11 +52,12 @@ def updateChannel(connection, name, url, lastchecked, storeddays, marker, daysta
 
 
 def updateDate(connection, name, lastchecked, storeddays, daystart):
-    age = lastchecked - datetime.combine(date.today(), time())
-    print timedelta
-    # if old move back. currently only by one day!
-    if age < timedelta():
-        connection.execute('UPDATE channel SET marker=0, storeddays="%s" WHERE channelname ="%s";'%(storeddays-1, name))
+    last = date(lastchecked.year, lastchecked.month, lastchecked.day)
+    age = date.today() - last
+    delta = age.days
+    if delta:
+        print "Moving channel ", name, " last updated ", lastchecked, " back ", delta, "days."
+        connection.execute('UPDATE channel SET marker=0, storeddays="%s" WHERE channelname ="%s";'%(storeddays-delta, name))
 
 
 data = read_PHP_config_file('config.php')
