@@ -60,8 +60,16 @@ def updateDate(connection, name, lastchecked, storeddays, daystart):
         connection.execute('UPDATE channel SET marker=0, storeddays="%s" WHERE channelname ="%s";'%(storeddays-delta, name))
 
 
+def findends(connection, starttime, channel, show):
+    connection.execute('SELECT starttime FROM tvshowinstance WHERE channelname = "%s" AND starttime > "%s" ORDER BY starttime LIMIT 1;'%(channel, starttime))
+    result = connection.fetchall()
+    if result:
+        connection.execute('UPDATE tvshowinstance SET endtime = "%s" WHERE showname = "%s" AND channelname="%s" and starttime = "%s";'%(result[0][0], show, channel, starttime))
+
+
 data = read_PHP_config_file('config.php')
 db = MySQLdb.connect(host=data['databaseserver'], user=data['databaseuser'], passwd=data['databasepassword'], db=data['databasename'])
+maxmarker = 3
 
 cursor = db.cursor()
 
@@ -70,7 +78,13 @@ result = cursor.fetchall()
 if result:
     updateDate(cursor, *result[0])
 
-cursor.execute("SELECT channelname, url, lastchecked, storeddays, marker, daystart FROM channel WHERE marker < 3 ORDER BY marker, lastchecked")
+cursor.execute("SELECT channelname, url, lastchecked, storeddays, marker, daystart FROM channel WHERE marker < %i ORDER BY marker, lastchecked"%maxmarker)
 result = cursor.fetchall()
 if result:
     updateChannel(cursor, *result[0])
+
+
+cursor.execute("SELECT starttime, channelname, showname FROM tvshowinstance WHERE endtime IS NULL ORDER BY starttime LIMIT %i;"%(90/maxmarker))
+result = cursor.fetchall()
+for row in result:
+    findends(cursor, *row)
