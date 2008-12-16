@@ -8,6 +8,34 @@ ul {
 a{        text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* Center Block */
+#main {
+    position: absolute;
+    left: 12%;
+    top: 0;
+    width: 88%;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+/* Body */
+#body{
+    position: absolute;
+    left: 0;
+    top: 3em;
+    width: 100%
+}
+
+#ShowInformation tr.Info{
+    background: #222;
+    color: #ddd;
+}
+
+#body table{
+    width: 75%;
+}
+
 /* Info Bar*/
 #infobar {
     position: absolute;
@@ -15,7 +43,7 @@ a:hover { text-decoration: underline; }
     top: 0;
     height: 1em;
     border: 0;
-    padding: .2em 0 .4em 0;
+    padding: 0.5em 0;
     width: 100%;
     background: #888;
     color: #000;
@@ -37,10 +65,11 @@ a:hover { text-decoration: underline; }
 
 /* sidebar */
 #sidebar{
-    position: absolute;
+    position: fixed;
+    overflow: auto;
     left: 0;
     top: 0;
-    width: 10em;
+    width: 12%;
     z-index: 2;
     height: 100%;
     background: #000;

@@ -12,6 +12,22 @@
     log_message_to_file("Attempted use.");
     session_start();
     $client = load_user();
+
+    function layout_shows($start, $end, $message)
+    {
+        global $client;
+        echo "        <tr class='Info'>\n";
+        echo "            <td colspan='3' style='text-align: center'>".$message."</td>\n";
+        echo "        </tr>\n";
+        foreach($client->getShows($start, $end) as $showinfo){
+            echo "            <tr class='Show'>\n";
+            echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])."</td>\n";
+            echo "                <td>".$showinfo["Channel Name"]."</td>\n";
+            echo "                <td>".$showinfo["Show Name"]."</td>\n";
+            echo "            </tr>\n";
+
+        }
+    }
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
@@ -54,12 +70,22 @@
         </ul>
         <p><?php echo $client->visit_count; ?></p>
     </div>
-    <div id="infobar">
-        <ul>
-            <li><a href=''>Contact</a></li>
-            <li><a href=''>About</a></li>
-            <li><a href=''>FAQ</a></li>
-        </ul>
+    <div id="main">
+        <div id="infobar">
+            <ul>
+                <li><a href=''>Contact</a></li>
+                <li><a href=''>About</a></li>
+                <li><a href=''>FAQ</a></li>
+            </ul>
+        </div>
+        <div id="body">
+            <table id="ShowInformation" align="center" cellspacing="20"><?php
+                layout_shows(-1, 0, "Shows currently on");
+                layout_shows(0, 2, "Shows on soon");
+                layout_shows(2, 24, "Shows on Later");
+            ?>
+            </table>
+        </div>
     </div>
 </body>
 </html>

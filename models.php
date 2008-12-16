@@ -29,6 +29,31 @@
                 $this->setChannel($_GET["channel"], $_GET["to"] == "on");
             }
         }
+
+        public function getShows($start, $end){
+            $channellist = array();
+            foreach ($this->channels as $channel) {
+                if ($channel["default?"]){
+                    array_push($channellist, $channel["ChannelName"]);
+                }
+            }
+            $channellist = implode("', '", $channellist);
+            $query = "SELECT showname, starttime, channelname FROM tvshowinstance ";
+            $a = date("Y-m-d H:i:s", time()+($start*60*60));
+            $b = date("Y-m-d H:i:s", time()+($end*60*60));
+            $query = $query." WHERE channelname IN ('".$channellist."') AND '".$a."' < starttime AND starttime < '".$b."' ";
+            $query = $query." ORDER BY starttime;";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $answer = array();
+            if (mysql_num_rows($result) > 0) {
+                while($row = mysql_fetch_row($result)) {
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "Channel Name"=>$row[2]);
+                    array_push($answer, $data);
+                }
+                mysql_free_result($result);
+            }
+            return $answer;
+        }
     }
 
     class DBUser extends User{
@@ -38,13 +63,12 @@
         }
 
         public function load_channels(){
-            $query = "SELECT channelName, state FROM userchannels where username = '".$this->name."'";
+            $query = "SELECT channelName FROM channel WHERE storeddays > 0 ORDER BY channelname";
             $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
             if (mysql_num_rows($result) > 0) {
                 $answer = array();
                 while($row = mysql_fetch_row($result)) {
-                    $data = array("ChannelName"=>$row[0], "URL"=>"", "default?"=>($row[1] == 1));
-                    array_push($answer, $data);
+                    array_push($answer, $this->loadChannel($row[0]));
                 }
                 mysql_free_result($result);
                 $this->channels = $answer;
@@ -52,6 +76,21 @@
             else{
                 $this->channels = array();
             }
+        }
+
+        private function loadChannel($channelName){
+            $query = "SELECT state FROM userchannels WHERE username = '".$this->name."' and channelname='".$channelName."';";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $answer = array("ChannelName"=>$channelName, "default?"=>0);
+            if(mysql_num_rows($result) > 0) {
+                $tmp = mysql_fetch_row($result);
+                $answer["default?"] = $tmp[0];
+            }
+            else{
+                $query = "INSERT userchannels set username='".$this->name."', channelName='".$channelName."', state=0, set_on=NOW();";
+                mysql_query($query) or die ("Error in query:".$query." ".mysql_error());
+            }
+            return $answer;
         }
 
         public function setChannel($ChannelName, $state){
@@ -72,7 +111,7 @@
                     $answer = array();
                     while($row = mysql_fetch_row($result)) {
                         if ($row[2] >= 0) {
-                            $data = array("ChannelName"=>$row[0], "URL"=>"", "default?"=>$row[1]);
+                            $data = array("ChannelName"=>$row[0], "default?"=>$row[1]);
                             array_push($answer, $data);
                         }
                     }
