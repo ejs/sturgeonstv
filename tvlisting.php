@@ -13,16 +13,16 @@
     session_start();
     $client = load_user();
 
-    function layout_shows($start, $end, $message)
+    function layout_shows($start, $end, $message, $minrating=1, $null=1)
     {
         global $client;
         echo "        <tr class='Info'>\n";
         echo "            <td colspan='3' style='text-align: center'>".$message."</td>\n";
         echo "        </tr>\n";
-        foreach($client->getShows($start, $end) as $showinfo){
+        foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
             echo "            <tr class='Show'>\n";
             echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
-            echo "                <td>".$showinfo["Channel Name"]."</td>\n";
+            echo "                <td>".$showinfo["Channel Name"]." - ".$showinfo["Rating"]."</td>\n";
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
             echo "            </tr>\n";
 
@@ -82,13 +82,13 @@
             <table id="ShowInformation" align="center" cellspacing="20"><?php
                 $a = "'".date("Y-m-d H:i:s", time())."' < endtime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time())."' ";
-                layout_shows($a, $b, "Shows currently on");
+                layout_shows($a, $b, "Shows currently on", 2);
                 $a = "'".date("Y-m-d H:i:s", time())."' < starttime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time()+(2*60*60))."' ";
-                layout_shows($a, $b, "Shows on soon");
+                layout_shows($a, $b, "Shows on soon", 3);
                 $a = "'".date("Y-m-d H:i:s", time()+(2*60*60))."' < starttime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time()+(24*60*60))."' ";
-                layout_shows($a, $b, "Shows on Later");
+                layout_shows($a, $b, "Shows on Later", 4, 0);
             ?>
             </table>
         </div>

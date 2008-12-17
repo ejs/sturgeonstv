@@ -30,7 +30,7 @@
             }
         }
 
-        public function getShows($start, $end){
+        public function getShows($start, $end, $minrating, $null){
             $channellist = array();
             foreach ($this->channels as $channel) {
                 if ($channel["default?"]){
@@ -45,7 +45,7 @@
             $answer = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
-                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2]);
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
                     array_push($answer, $data);
                 }
                 mysql_free_result($result);
@@ -53,11 +53,44 @@
             return $answer;
         }
     }
-
     class DBUser extends User{
         public function __construct($name){
             $this->name = $name;
             parent::__construct();
+        }
+
+        public function getShows($start, $end, $minrating, $null){
+            $start = str_replace("starttime", "tvshowinstance.starttime", $start);
+            $start = str_replace("endtime", "tvshowinstance.endtime", $start);
+            $end = str_replace("starttime", "tvshowinstance.starttime", $end);
+            $end = str_replace("endtime", "tvshowinstance.endtime", $end);
+            $channellist = array();
+            foreach ($this->channels as $channel) {
+                if ($channel["default?"]){
+                    array_push($channellist, $channel["ChannelName"]);
+                }
+            }
+            $channellist = implode("', '", $channellist);
+            $query = "SELECT tvshowinstance.showname, tvshowinstance.starttime, tvshowinstance.channelname, tvshowinstance.endtime, tvshowrating.rating ";
+            $query = $query." FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username='able' ";
+            $query = $query." WHERE tvshowinstance.channelname IN ('".$channellist."') AND ".$start." AND ".$end." ";
+            if ($null){
+                $query = $query." AND ( ".$minrating." <= tvshowrating.rating OR tvshowrating.rating IS NULL ) ";
+            }
+            else {
+                $query = $query." AND ".$minrating." <= tvshowrating.rating ";
+            }
+            $query = $query." ORDER BY starttime;";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $answer = array();
+            if (mysql_num_rows($result) > 0) {
+                while($row = mysql_fetch_row($result)) {
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>$row[4]);
+                    array_push($answer, $data);
+                }
+                mysql_free_result($result);
+            }
+            return $answer;
         }
 
         public function load_channels(){
