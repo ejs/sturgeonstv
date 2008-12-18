@@ -87,7 +87,7 @@
             </ul>
         </div>
         <div id="body">
-            <table id="ShowInformation" align="center" cellspacing="20"><?php
+            <table id="ShowInformation" align="center" cellpadding="10"><?php
                 $a = "'".date("Y-m-d H:i:s", time())."' < endtime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time())."' ";
                 layout_shows($a, $b, "Shows currently on", 2);
