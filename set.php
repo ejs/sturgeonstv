@@ -12,6 +12,6 @@
     log_message_to_file("Attempted use.");
     session_start();
     $client = load_user();
-    $client->update_channel();
+    $client->update_show();
     header('Location: tvlisting.php') ;
 ?>

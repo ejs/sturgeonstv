@@ -19,22 +19,41 @@
         public $name;
 
         public function __construct(){
-            $this->update();
             $this->load_channels();
             $this->visit_count = ++$_SESSION['counter'];
         }
 
-        public function update(){
+        public function update_channel(){
             if ($_GET){
                 $this->setChannel($_GET["channel"], $_GET["to"] == "on");
             }
         }
+
+        public function update_show(){
+            if ($_GET){
+                $this->setShow($_GET["show"], $_GET["rating"]);
+            }
+        }
+
     }
 
     class DBUser extends User{
         public function __construct($name){
             $this->name = $name;
             parent::__construct();
+        }
+
+        public function setShow($name, $rating){
+            $query = "SELECT * FROM tvshowrating WHERE username='".$this->name."' AND showname='".$name."';";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            if (mysql_num_rows($result) > 0 ){
+                $query = "UPDATE tvshowrating SET rating=".$rating.", lastset=NOW() WHERE username='".$this->name."' AND showname='".$name."';";
+                $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            }
+            else{
+                $query = "INSERT tvshowrating SET rating=".$rating.", lastset=NOW(), username='".$this->name."', showname='".$name."';";
+                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            }
         }
 
         public function getShows($start, $end, $minrating, $null){
@@ -149,6 +168,9 @@
                     $_SESSION['channels'][$key]['default?'] = $state;
                 }
             }
+        }
+
+        public function setShow($name, $rating){
         }
     }
 ?>
