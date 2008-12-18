@@ -1,0 +1,3 @@
+<?php
+    passthru("./update.py");
+?>

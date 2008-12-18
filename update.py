@@ -1,8 +1,11 @@
+#!/Library/Frameworks/Python.framework/Versions/Current/bin/python
 import re
 import feedparser
 import MySQLdb
 from datetime import datetime, date, time, timedelta
+import sys
 
+sys.path.append("/Library/Frameworks/Python.framework/Versions/Current/lib/python2.6/site-packages")
 
 def read_PHP_config_file(fn):
     pattern = re.compile("\s*\$(\w+)\s+=\s+(?:['|\"])(\w*)(?:['|\"];)")
