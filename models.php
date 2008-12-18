@@ -53,6 +53,7 @@
             return $answer;
         }
     }
+
     class DBUser extends User{
         public function __construct($name){
             $this->name = $name;
@@ -97,34 +98,17 @@
         }
 
         public function load_channels(){
-            $query = "SELECT channelName FROM channel WHERE storeddays > 0 ORDER BY channelname";
+            $query = "SELECT channel.channelName, userchannels.state ";
+            $query = $query." FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND userchannels.username = '".$this->name."' ";
+            $query = $query." WHERE channel.storeddays > 0 ORDER BY channel.channelname";
             $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $this->channels = array();
             if (mysql_num_rows($result) > 0) {
-                $answer = array();
                 while($row = mysql_fetch_row($result)) {
-                    array_push($answer, $this->loadChannel($row[0]));
+                    array_push($this->channels, array("ChannelName"=>$row[0], "default?"=>$row[1]));
                 }
                 mysql_free_result($result);
-                $this->channels = $answer;
             }
-            else{
-                $this->channels = array();
-            }
-        }
-
-        private function loadChannel($channelName){
-            $query = "SELECT state FROM userchannels WHERE username = '".$this->name."' and channelname='".$channelName."';";
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
-            $answer = array("ChannelName"=>$channelName, "default?"=>0);
-            if(mysql_num_rows($result) > 0) {
-                $tmp = mysql_fetch_row($result);
-                $answer["default?"] = $tmp[0];
-            }
-            else{
-                $query = "INSERT userchannels set username='".$this->name."', channelName='".$channelName."', state=0, set_on=NOW();";
-                mysql_query($query) or die ("Error in query:".$query." ".mysql_error());
-            }
-            return $answer;
         }
 
         public function setChannel($ChannelName, $state){
