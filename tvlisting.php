@@ -26,10 +26,10 @@
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
             echo "                <td>";
             for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                echo '*';
+                echo '<img src="black.png" />';
             }
             for(;$a < 5; $a = $a + 1){
-                echo '0';
+                echo '<img src="white.png" />';
             }
             echo "</td>\n";
             echo "            </tr>\n";
