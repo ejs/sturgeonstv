@@ -40,7 +40,7 @@
 
         # log user in
         setcookie("validuser", $user_name, time()+60*60*24*30);
-        header('Location: http://localhost/tvlisting.php');
+        header('Location: tvlisting.php');
     }
     else{
         include("registerscreen.php");

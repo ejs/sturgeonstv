@@ -72,7 +72,7 @@
             }
             $channellist = implode("', '", $channellist);
             $query = "SELECT tvshowinstance.showname, tvshowinstance.starttime, tvshowinstance.channelname, tvshowinstance.endtime, tvshowrating.rating ";
-            $query = $query." FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username='able' ";
+            $query = $query." FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username='".$this->name."' ";
             $query = $query." WHERE tvshowinstance.channelname IN ('".$channellist."') AND ".$start." AND ".$end." ";
             if ($null){
                 $query = $query." AND ( ".$minrating." <= tvshowrating.rating OR tvshowrating.rating IS NULL ) ";
