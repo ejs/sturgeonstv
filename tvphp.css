@@ -37,6 +37,11 @@ a:hover { text-decoration: underline; }
     color: #222;
 }
 
+a img {
+    border: none;
+    margin: 0;
+}
+
 #body table{
     width: 75%;
 }

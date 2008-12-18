@@ -24,12 +24,12 @@
             echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
             echo "                <td>".$showinfo["Channel Name"]."</td>\n";
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
-            echo "                <td>";
+            echo "                <td class='ratings'>";
             for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                echo '<img src="black.png" />';
+                echo '<a href="set?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
             }
             for(;$a < 5; $a = $a + 1){
-                echo '<img src="white.png" />';
+                echo '<a href="set?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
             }
             echo "</td>\n";
             echo "            </tr>\n";
