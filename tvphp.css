@@ -32,6 +32,11 @@ a:hover { text-decoration: underline; }
     color: #ddd;
 }
 
+#ShowInformation tr.Show:Hover{
+    background: #ddd;
+    color: #222;
+}
+
 #body table{
     width: 75%;
 }

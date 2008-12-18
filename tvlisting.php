@@ -17,13 +17,21 @@
     {
         global $client;
         echo "        <tr class='Info'>\n";
-        echo "            <td colspan='3' style='text-align: center'>".$message."</td>\n";
+        echo "            <td colspan='4' style='text-align: center'>".$message."</td>\n";
         echo "        </tr>\n";
         foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
             echo "            <tr class='Show'>\n";
             echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
-            echo "                <td>".$showinfo["Channel Name"]." - ".$showinfo["Rating"]."</td>\n";
+            echo "                <td>".$showinfo["Channel Name"]."</td>\n";
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
+            echo "                <td>";
+            for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
+                echo '*';
+            }
+            for(;$a < 5; $a = $a + 1){
+                echo '0';
+            }
+            echo "</td>\n";
             echo "            </tr>\n";
 
         }
@@ -88,7 +96,10 @@
                 layout_shows($a, $b, "Shows on soon", 3);
                 $a = "'".date("Y-m-d H:i:s", time()+(2*60*60))."' < starttime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time()+(24*60*60))."' ";
-                layout_shows($a, $b, "Shows on Later", 4, 0);
+                layout_shows($a, $b, "Shows on Later", 4);
+                $a = "'".date("Y-m-d H:i:s", time()+(24*60*60))."' < starttime ";
+                $b = "starttime < '".date("Y-m-d H:i:s", time()+(7*24*60*60))."' ";
+                layout_shows($a, $b, "Shows on this Week", 5, 0);
             ?>
             </table>
         </div>
