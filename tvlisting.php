@@ -81,7 +81,7 @@
     <div id="main">
         <div id="infobar">
             <ul>
-                <li><a href=''>Contact</a></li>
+                <li><a href='mailto:tv.whuffie@spamgourmet.com'>Contact</a></li>
                 <li><a href=''>About</a></li>
                 <li><a href=''>FAQ</a></li>
             </ul>
