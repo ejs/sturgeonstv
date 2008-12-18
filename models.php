@@ -29,29 +29,6 @@
                 $this->setChannel($_GET["channel"], $_GET["to"] == "on");
             }
         }
-
-        public function getShows($start, $end, $minrating, $null){
-            $channellist = array();
-            foreach ($this->channels as $channel) {
-                if ($channel["default?"]){
-                    array_push($channellist, $channel["ChannelName"]);
-                }
-            }
-            $channellist = implode("', '", $channellist);
-            $query = "SELECT showname, starttime, channelname, endtime FROM tvshowinstance";
-            $query = $query." WHERE channelname IN ('".$channellist."') AND ".$start." AND ".$end." ";
-            $query = $query." ORDER BY starttime;";
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
-            $answer = array();
-            if (mysql_num_rows($result) > 0) {
-                while($row = mysql_fetch_row($result)) {
-                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
-                    array_push($answer, $data);
-                }
-                mysql_free_result($result);
-            }
-            return $answer;
-        }
     }
 
     class DBUser extends User{
@@ -141,6 +118,29 @@
                 }
                 $_SESSION['channels'] = $this->channels;
             }
+        }
+
+        public function getShows($start, $end, $minrating, $null){
+            $channellist = array();
+            foreach ($this->channels as $channel) {
+                if ($channel["default?"]){
+                    array_push($channellist, $channel["ChannelName"]);
+                }
+            }
+            $channellist = implode("', '", $channellist);
+            $query = "SELECT showname, starttime, channelname, endtime FROM tvshowinstance";
+            $query = $query." WHERE channelname IN ('".$channellist."') AND ".$start." AND ".$end." ";
+            $query = $query." ORDER BY starttime;";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $answer = array();
+            if (mysql_num_rows($result) > 0) {
+                while($row = mysql_fetch_row($result)) {
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
+                    array_push($answer, $data);
+                }
+                mysql_free_result($result);
+            }
+            return $answer;
         }
 
         public function setChannel($ChannelName, $state){
