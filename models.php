@@ -99,6 +99,29 @@
             return $answer;
         }
 
+        public function getShowInstance($start, $end, $name){
+            $channellist = array();
+            foreach ($this->channels as $channel) {
+                if ($channel["default?"]){
+                    array_push($channellist, $channel["ChannelName"]);
+                }
+            }
+            $channellist = implode("', '", $channellist);
+            $query = "SELECT showname, starttime, channelname, endtime, discription FROM tvshowinstance";
+            $query = $query." WHERE channelname IN ('".$channellist."') AND ".$start." AND ".$end." AND '".$name."'= showname ";
+            $query = $query." ORDER BY starttime;";
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $answer = array();
+            if (mysql_num_rows($result) > 0) {
+                while($row = mysql_fetch_row($result)) {
+                    $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Description"=>$row[4]);
+                    array_push($answer, $data);
+                }
+                mysql_free_result($result);
+            }
+            return $answer;
+        }
+
         public function load_channels(){
             $query = "SELECT channel.channelName, userchannels.state ";
             $query = $query." FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND userchannels.username = '".$this->name."' ";
