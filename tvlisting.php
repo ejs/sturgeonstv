@@ -95,11 +95,21 @@
                 $b = "starttime < '".date("Y-m-d H:i:s", time()+(2*60*60))."' ";
                 layout_shows($a, $b, "Shows on soon", 3);
                 $a = "'".date("Y-m-d H:i:s", time()+(2*60*60))."' < starttime ";
-                $b = "starttime < '".date("Y-m-d H:i:s", time()+(24*60*60))."' ";
-                layout_shows($a, $b, "Shows on Later", 4);
-                $a = "'".date("Y-m-d H:i:s", time()+(24*60*60))."' < starttime ";
-                $b = "starttime < '".date("Y-m-d H:i:s", time()+(7*24*60*60))."' ";
-                layout_shows($a, $b, "Shows on this Week", 5, 0);
+                $tmp = getdate();
+                $b = "starttime < '".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 23:59:59' ";
+                layout_shows($a, $b, "Shows on Later Today", 4);
+                for($c = 1; $c < 7; $c += 1){
+                    $tmp = getdate(time()+(($c+1)*24*60*60));
+                    $b = "starttime < '".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 00:00:00' ";
+                    $tmp = getdate(time()+($c*24*60*60));
+                    $a = "'".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 00:00:00' < starttime ";
+                    if ($c == 1){
+                        layout_shows($a, $b, $tmp['mday'].' '.$tmp['month'].' '.$tmp['year'], 4, 1);
+                    }
+                    else{
+                        layout_shows($a, $b, $tmp['mday'].' '.$tmp['month'].' '.$tmp['year'], 5, 0);
+                    }
+                }
             ?>
             </table>
         </div>
