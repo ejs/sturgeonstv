@@ -47,8 +47,14 @@
             $query = "SELECT * FROM tvshowrating WHERE username='".$this->name."' AND showname='".$name."';";
             $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
             if (mysql_num_rows($result) > 0 ){
-                $query = "UPDATE tvshowrating SET rating=".$rating.", lastset=NOW() WHERE username='".$this->name."' AND showname='".$name."';";
-                $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                if ($rating){
+                    $query = "UPDATE tvshowrating SET rating=".$rating.", lastset=NOW() WHERE username='".$this->name."' AND showname='".$name."';";
+                    mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                }
+                else{
+                    $query = "DELETE FROM tvshowrating WHERE username='".$this->name."' AND showname='".$name."';";
+                    mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                }
             }
             else{
                 $query = "INSERT tvshowrating SET rating=".$rating.", lastset=NOW(), username='".$this->name."', showname='".$name."';";

@@ -25,11 +25,12 @@
             echo "                <td>".$showinfo["Channel Name"]."</td>\n";
             echo "                <td>".$showinfo["Show Name"]."</td>\n";
             echo "                <td class='ratings'>";
+            echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating=0"><img src="x.png" /></a>';
             for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                echo '<a href="set?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
+                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
             }
             for(;$a < 5; $a = $a + 1){
-                echo '<a href="set?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
+                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
             }
             echo "</td>\n";
             echo "            </tr>\n";
