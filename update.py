@@ -72,7 +72,7 @@ def findends(connection, starttime, channel, show):
 
 data = read_PHP_config_file('config.php')
 db = MySQLdb.connect(host=data['databaseserver'], user=data['databaseuser'], passwd=data['databasepassword'], db=data['databasename'])
-maxmarker = 3
+maxmarker = int(data['failcap'])
 
 cursor = db.cursor()
 

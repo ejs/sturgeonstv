@@ -1,8 +1,8 @@
 <?php
+    $sitename = "Sturgeons TV Guide";
+    $failcap = "3";
     $databaseserver = '';
     $databasename = 'tvphp';
     $databaseuser = 'tvphp';
     $databasepassword = 'password';
-    $logfile = "file:///Library/WebServer/Private/TVUse.log";
-    $errorfile = "file:///Library/WebServer/Private/TVerror.log";
 ?>
