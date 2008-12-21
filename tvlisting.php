@@ -32,12 +32,7 @@
         }
     }
 ?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
-<head>
-    <title>Just testing</title>
-    <link rel="stylesheet" type="text/css" href="tvphp.css" />
-</head>
+<?php include("head.php") ?>
 <body>
     <div id="sidebar">
         <p><?php
