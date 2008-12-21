@@ -137,8 +137,16 @@
         }
 
         public function setChannel($ChannelName, $state){
-            $query = 'UPDATE userchannels SET state="'.$state.'" WHERE username = "'.$this->name.'" AND channelname = "'.$ChannelName.'";';
-            mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $query = 'SELECT * FROM userchannels WHERE username="'.$this->name.'" AND channelname="'.$ChannelName.'";';
+            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            if (mysql_num_rows($result) > 0 ){
+                $query = 'UPDATE userchannels SET state="'.$state.'" WHERE username = "'.$this->name.'" AND channelname = "'.$ChannelName.'";';
+                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            }
+            else{
+                $query = 'INSERT userchannels SET state="'.$state.'", username = "'.$this->name.'", channelname = "'.$ChannelName.'";';
+                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            }
         }
     }
 
