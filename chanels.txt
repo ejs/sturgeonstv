@@ -1,42 +1,42 @@
-http://bleb.org/tv/data/rss.php?ch=bbc1&day=0 BBC1
-http://bleb.org/tv/data/rss.php?ch=bbc2&day=0 BBC2
-http://bleb.org/tv/data/rss.php?ch=bbc3&day=0 BBC3
-http://bleb.org/tv/data/rss.php?ch=bbc4&day=0 BBC4
-http://bleb.org/tv/data/rss.php?ch=bbc_news24&day=0 BBC News 24
-http://bleb.org/tv/data/rss.php?ch=e4&day=0 E4
-http://bleb.org/tv/data/rss.php?ch=film_four&day=0 Film4
-http://bleb.org/tv/data/rss.php?ch=more4&day=0 More4
-http://bleb.org/tv/data/rss.php?ch=five_life&day=0 Five Life
-http://bleb.org/tv/data/rss.php?ch=five_us&day=0 Five Us
-http://bleb.org/tv/data/rss.php?ch=bravo&day=0 Bravo
-http://bleb.org/tv/data/rss.php?ch=scifi&day=0 SciFi
-http://bleb.org/tv/data/rss.php?ch=bbc_world_service&day=0 BBC World Service
-http://bleb.org/tv/data/rss.php?ch=living_tv&day=0 Living TV
-http://bleb.org/tv/data/rss.php?ch=men_and_motors&day=0 Men and Motors
-http://bleb.org/tv/data/rss.php?ch=sky_one&day=0 Sky One
-http://bleb.org/tv/data/rss.php?ch=sky_two&day=0 Sky Two
-http://bleb.org/tv/data/rss.php?ch=sky_three&day=0 Sky Three
-http://bleb.org/tv/data/rss.php?ch=virgin1&day=0 Virgin1
-http://bleb.org/tv/data/rss.php?ch=uk_drama&day=0 UK Drama
-http://bleb.org/tv/data/rss.php?ch=ch4&day=0 Channel 4
-http://bleb.org/tv/data/rss.php?ch=five&day=0 Five
-http://bleb.org/tv/data/rss.php?ch=paramount&day=0 Paramount
-http://bleb.org/tv/data/rss.php?ch=paramount2&day=0 Paramount2
-http://bleb.org/tv/data/rss.php?ch=sky_news&day=0 sky news
-http://bleb.org/tv/data/rss.php?ch=uk_gold&day=0 UK Gold
-http://bleb.org/tv/data/rss.php?ch=uk_history&day=0 UK History
-http://bleb.org/tv/data/rss.php?ch=uktv_documentary&day=0 UKTV Documentary
-http://bleb.org/tv/data/rss.php?ch=uktv_people&day=0 UKTV People
-http://bleb.org/tv/data/rss.php?ch=discovery&day=0 Discovery
-http://bleb.org/tv/data/rss.php?ch=fx&day=0 FX
-http://bleb.org/tv/data/rss.php?ch=mtv&day=0 MTV
-http://bleb.org/tv/data/rss.php?ch=bbc_radio1&day=0 BBC Radio 1
-http://bleb.org/tv/data/rss.php?ch=bbc_radio2&day=0 BBC Radio 2
-http://bleb.org/tv/data/rss.php?ch=bbc_radio3&day=0 BBC Radio 3
-http://bleb.org/tv/data/rss.php?ch=bbc_radio4&day=0 BBC Radio 4
-http://bleb.org/tv/data/rss.php?ch=bbc_radio5_live&day=0 BBC Radio 5 Live
-http://bleb.org/tv/data/rss.php?ch=bbc_6music&day=0 BBC Radio 6 Music
-http://bleb.org/tv/data/rss.php?ch=bbc_7&day=0 BBC Radio 7
-http://bleb.org/tv/data/rss.php?ch=boomerang&day=0 Boomerang
-http://bleb.org/tv/data/rss.php?ch=british_eurosport&day=0 British Eurosport
-http://bleb.org/tv/data/rss.php?ch=challenge&day=0 Challenge
+http://bleb.org/tv/data/rss.php?ch=bbc1&day=0 1 BBC1
+http://bleb.org/tv/data/rss.php?ch=bbc2&day=0 1 BBC2
+http://bleb.org/tv/data/rss.php?ch=bbc3&day=0 0 BBC3
+http://bleb.org/tv/data/rss.php?ch=bbc4&day=0 0 BBC4
+http://bleb.org/tv/data/rss.php?ch=bbc_news24&day=0 0 BBC News 24
+http://bleb.org/tv/data/rss.php?ch=e4&day=0 0 E4
+http://bleb.org/tv/data/rss.php?ch=film_four&day=0 0 Film4
+http://bleb.org/tv/data/rss.php?ch=more4&day=0 0 More4
+http://bleb.org/tv/data/rss.php?ch=five_life&day=0 0 Five Life
+http://bleb.org/tv/data/rss.php?ch=five_us&day=0 0 Five Us
+http://bleb.org/tv/data/rss.php?ch=bravo&day=0 0 Bravo
+http://bleb.org/tv/data/rss.php?ch=scifi&day=0 0 SciFi
+http://bleb.org/tv/data/rss.php?ch=bbc_world_service&day=0 0 BBC World Service
+http://bleb.org/tv/data/rss.php?ch=living_tv&day=0 0 Living TV
+http://bleb.org/tv/data/rss.php?ch=men_and_motors&day=0 0 Men and Motors
+http://bleb.org/tv/data/rss.php?ch=sky_one&day=0 0 Sky One
+http://bleb.org/tv/data/rss.php?ch=sky_two&day=0 0 Sky Two
+http://bleb.org/tv/data/rss.php?ch=sky_three&day=0 0 Sky Three
+http://bleb.org/tv/data/rss.php?ch=virgin1&day=0 0 Virgin1
+http://bleb.org/tv/data/rss.php?ch=uk_drama&day=0 0 UK Drama
+http://bleb.org/tv/data/rss.php?ch=ch4&day=0 1 Channel 4
+http://bleb.org/tv/data/rss.php?ch=five&day=0 1 Five
+http://bleb.org/tv/data/rss.php?ch=paramount&day=0 0 Paramount
+http://bleb.org/tv/data/rss.php?ch=paramount2&day=0 0 Paramount2
+http://bleb.org/tv/data/rss.php?ch=sky_news&day=0 0 sky news
+http://bleb.org/tv/data/rss.php?ch=uk_gold&day=0 0 UK Gold
+http://bleb.org/tv/data/rss.php?ch=uk_history&day=0 0 UK History
+http://bleb.org/tv/data/rss.php?ch=uktv_documentary&day=0 0 UKTV Documentary
+http://bleb.org/tv/data/rss.php?ch=uktv_people&day=0 0 UKTV People
+http://bleb.org/tv/data/rss.php?ch=discovery&day=0 0 Discovery
+http://bleb.org/tv/data/rss.php?ch=fx&day=0 0 FX
+http://bleb.org/tv/data/rss.php?ch=mtv&day=0 0 MTV
+http://bleb.org/tv/data/rss.php?ch=bbc_radio1&day=0 0 BBC Radio 1
+http://bleb.org/tv/data/rss.php?ch=bbc_radio2&day=0 0 BBC Radio 2
+http://bleb.org/tv/data/rss.php?ch=bbc_radio3&day=0 0 BBC Radio 3
+http://bleb.org/tv/data/rss.php?ch=bbc_radio4&day=0 0 BBC Radio 4
+http://bleb.org/tv/data/rss.php?ch=bbc_radio5_live&day=0 0 BBC Radio 5 Live
+http://bleb.org/tv/data/rss.php?ch=bbc_6music&day=0 0 BBC Radio 6 Music
+http://bleb.org/tv/data/rss.php?ch=bbc_7&day=0 0 BBC Radio 7
+http://bleb.org/tv/data/rss.php?ch=boomerang&day=0 0 Boomerang
+http://bleb.org/tv/data/rss.php?ch=british_eurosport&day=0 0 British Eurosport
+http://bleb.org/tv/data/rss.php?ch=challenge&day=0 0 Challenge
