@@ -16,25 +16,27 @@
     function layout_shows($start, $end, $message, $minrating=1, $null=1)
     {
         global $client;
-        echo "        <tr class='Info'>\n";
-        echo "            <td colspan='4' style='text-align: center'>".$message."</td>\n";
-        echo "        </tr>\n";
-        foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
-            echo "            <tr class='Show'>\n";
-            echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
-            echo "                <td>".$showinfo["Channel Name"]."</td>\n";
-            echo "                <td><a href=\"show.php?name=".$showinfo["Show Name"]."\">".$showinfo["Show Name"]."</a></td>\n";
-            echo "                <td class='ratings'>";
-            echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating=0"><img src="x.png" /></a>';
-            for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
+        $shows = $client->getShows($start, $end, $minrating, $null);
+        if ($shows or $null){
+            echo "        <tr class='Info'>\n";
+            echo "            <td colspan='4' style='text-align: center'>".$message."</td>\n";
+            echo "        </tr>\n";
+            foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
+                echo "            <tr class='Show'>\n";
+                echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
+                echo "                <td>".$showinfo["Channel Name"]."</td>\n";
+                echo "                <td><a href=\"show.php?name=".$showinfo["Show Name"]."\">".$showinfo["Show Name"]."</a></td>\n";
+                echo "                <td class='ratings'>";
+                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating=0"><img src="x.png" /></a>';
+                for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
+                    echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
+                }
+                for(;$a < 5; $a = $a + 1){
+                    echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
+                }
+                echo "</td>\n";
+                echo "            </tr>\n";
             }
-            for(;$a < 5; $a = $a + 1){
-                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
-            }
-            echo "</td>\n";
-            echo "            </tr>\n";
-
         }
     }
 ?>
