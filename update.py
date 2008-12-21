@@ -20,6 +20,7 @@ def read_PHP_config_file(fn):
 
 def find_shows(url, offset, daystart):
     print daystart
+    print url
     source = feedparser.parse(url).entries
     assert len(source)
     day = date.today()+timedelta(days=offset)
