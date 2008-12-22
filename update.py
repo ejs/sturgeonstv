@@ -43,12 +43,16 @@ def updateChannel(connection, name, url, lastchecked, storeddays, marker, daysta
     print name, lastchecked, storeddays, marker
     try:
         for start, title, description, link in find_shows(url[:-1]+str(storeddays), storeddays, daystart):
-            connection.execute('INSERT tvshowinstance SET showname="%s", channelname="%s", starttime="%s", discription="%s", url="%s";'%(title, name, start, description, link))
+            try:
+                query = 'INSERT tvshowinstance SET showname="%s", channelname="%s", starttime="%s", discription="%s", url="%s";'%(title.replace('"', '\\"'), name, start, description.replace('"', '\\"'), link)
+                connection.execute(query)
+            except Exception, e:
+                print query
+                print e
     except AssertionError:
         print "Empty Feed"
         connection.execute('UPDATE channel SET marker="%s", lastchecked=NOW() WHERE channelname ="%s";'%(marker+1, name))
     except Exception, e:
-        # catch and log warnings from MySQL as well
         print type(e)
         print e
     else:
