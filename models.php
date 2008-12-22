@@ -156,15 +156,13 @@
                 $this->channels = $_SESSION['channels'];
             }
             else{
-                $query = 'SELECT channelName, standard, storeddays FROM channel;';
+                $query = 'SELECT channelName, standard, storeddays FROM channel WHERE storeddays > 0 ORDER BY channelname;';
                 $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
                 if (mysql_num_rows($result) > 0) {
                     $answer = array();
                     while($row = mysql_fetch_row($result)) {
-                        if ($row[2] >= 0) {
-                            $data = array("ChannelName"=>$row[0], "default?"=>$row[1]);
-                            array_push($answer, $data);
-                        }
+                        $data = array("ChannelName"=>$row[0], "default?"=>$row[1]);
+                        array_push($answer, $data);
                     }
                     mysql_free_result($result);
                     $this->channels = $answer;
