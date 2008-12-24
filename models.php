@@ -13,6 +13,18 @@
         }
     }
 
+    function escape($s){
+        $res = str_replace('\\', '\\\\', $s);
+        $res = str_replace('"', '\"', $res);
+        $res = str_replace("'", "\'", $res);
+        return $res;
+    }
+
+    function run_sql($query){
+        $tmp = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+        return $tmp;
+    }
+
     class User {
         public $channels;
         public $visit_count;
@@ -44,21 +56,18 @@
         }
 
         public function setShow($name, $rating){
-            $query = 'SELECT * FROM tvshowrating WHERE username="'.$this->name.'" AND showname="'.$name.'";';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $query = 'SELECT * FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";';
+            $result = run_sql($query);
             if (mysql_num_rows($result) > 0 ){
                 if ($rating){
-                    $query = 'UPDATE tvshowrating SET rating='.$rating.', lastset=NOW() WHERE username="'.$this->name.'" AND showname="'.$name.'";';
-                    mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                    run_sql('UPDATE tvshowrating SET rating='.escape($rating).', lastset=NOW() WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
                 }
                 else{
-                    $query = 'DELETE FROM tvshowrating WHERE username="'.$this->name.'" AND showname="'.$name.'";';
-                    mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                    run_sql('DELETE FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
                 }
             }
             else{
-                $query = 'INSERT tvshowrating SET rating='.$rating.', lastset=NOW(), username="'.$this->name.'", showname="'.$name.'";';
-                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                run_sql('INSERT tvshowrating SET rating='.escape($rating).', lastset=NOW(), username="'.escape($this->name).'", showname="'.escape($name).'";');
             }
         }
 
@@ -75,16 +84,16 @@
             }
             $channellist = implode('", "', $channellist);
             $query = 'SELECT tvshowinstance.showname, tvshowinstance.starttime, tvshowinstance.channelname, tvshowinstance.endtime, tvshowrating.rating ';
-            $query = $query.' FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username="'.$this->name.'" ';
+            $query = $query.' FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username="'.escape($this->name).'" ';
             $query = $query.' WHERE tvshowinstance.channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' ';
             if ($null){
-                $query = $query.' AND ( '.$minrating.' <= tvshowrating.rating OR tvshowrating.rating IS NULL ) ';
+                $query = $query.' AND ( '.escape($minrating).' <= tvshowrating.rating OR tvshowrating.rating IS NULL ) ';
             }
             else {
-                $query = $query.' AND '.$minrating.' <= tvshowrating.rating ';
+                $query = $query.' AND '.escape($minrating).' <= tvshowrating.rating ';
             }
             $query = $query.' ORDER BY starttime;';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $result = run_sql($query);
             $answer = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
@@ -108,9 +117,9 @@
             }
             $channellist = implode('", "', $channellist);
             $query = 'SELECT showname, starttime, channelname, endtime, discription FROM tvshowinstance';
-            $query = $query.' WHERE channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' AND "'.$name.'"= showname ';
+            $query = $query.' WHERE channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' AND "'.escape($name).'"= showname ';
             $query = $query.' ORDER BY starttime;';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $result = run_sql($query);
             $answer = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
@@ -124,9 +133,9 @@
 
         public function load_channels(){
             $query = 'SELECT channel.channelName, userchannels.state ';
-            $query = $query.' FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND userchannels.username = "'.$this->name.'" ';
+            $query = $query.' FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND userchannels.username = "'.escape($this->name).'" ';
             $query = $query.' WHERE channel.storeddays > 0 ORDER BY channel.channelname';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $result = run_sql($query);
             $this->channels = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
@@ -137,15 +146,12 @@
         }
 
         public function setChannel($ChannelName, $state){
-            $query = 'SELECT * FROM userchannels WHERE username="'.$this->name.'" AND channelname="'.$ChannelName.'";';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $result = run_sql('SELECT * FROM userchannels WHERE username="'.escape($this->name).'" AND channelname="'.escape($ChannelName).'";');
             if (mysql_num_rows($result) > 0 ){
-                $query = 'UPDATE userchannels SET state="'.$state.'" WHERE username = "'.$this->name.'" AND channelname = "'.$ChannelName.'";';
-                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                run_sql('UPDATE userchannels SET state="'.escape($state).'" WHERE username = "'.escape($this->name).'" AND channelname = "'.escape($ChannelName).'";');
             }
             else{
-                $query = 'INSERT userchannels SET state="'.$state.'", username = "'.$this->name.'", channelname = "'.$ChannelName.'";';
-                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                run_sql('INSERT userchannels SET state="'.escape($state).'", username = "'.escape($this->name).'", channelname = "'.escape($ChannelName).'";');
             }
         }
     }
@@ -156,8 +162,7 @@
                 $this->channels = $_SESSION['channels'];
             }
             else{
-                $query = 'SELECT channelName, standard, storeddays FROM channel WHERE storeddays > 0 ORDER BY channelname;';
-                $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                $result = run_sql('SELECT channelName, standard, storeddays FROM channel WHERE storeddays > 0 ORDER BY channelname;');
                 if (mysql_num_rows($result) > 0) {
                     $answer = array();
                     while($row = mysql_fetch_row($result)) {
@@ -185,7 +190,7 @@
             $query = 'SELECT showname, starttime, channelname, endtime FROM tvshowinstance';
             $query = $query.' WHERE channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' ';
             $query = $query.' ORDER BY starttime;';
-            $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+            $result = run_sql($query);
             $answer = array();
             if ($null){
                 if (mysql_num_rows($result) > 0) {

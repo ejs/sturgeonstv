@@ -8,8 +8,7 @@
     $password = $_POST['password'];
 
     function validate($username, $password){
-        $query = 'SELECT username FROM user WHERE username ="'.$username.'" AND password = SHA1("'.$password.'")';
-        $result = mysql_query($query) or die("Sorry dB error");
+        $result = run_sql('SELECT username FROM user WHERE username ="'.escape($username).'" AND password = SHA1("'.escape($password).'")');
         return (mysql_num_rows($result) > 0);
     }
 

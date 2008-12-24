@@ -9,23 +9,19 @@
     $passwordtwo = $_POST['password2'];
 
     function validate($username, $password, $passwordtwo){
-        $query = 'SELECT username FROM user WHERE username ="'.$username.'";';
-        $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+        $result = run_sql('SELECT username FROM user WHERE username ="'.escape($username).'";');
         return ($username && $password && mysql_num_rows($result) == 0 && $password === $passwordtwo);
     }
 
     if (validate($user_name, $password, $passwordtwo)){
         # add user to database
-        $query = 'INSERT user SET username ="'.$user_name.'", password = SHA1("'.$password.'"), created= NOW();';
-        $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+        $result = run_sql('INSERT user SET username ="'.escape($user_name).'", password = SHA1("'.escape($password).'"), created= NOW();');
 
         # set default channels
-        $query = "SELECT channelName FROM channel WHERE standard = 1;";
-        $result = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+        $result = run_sql('SELECT channelName FROM channel WHERE standard = 1;');
         if (mysql_num_rows($result) > 0) {
             while($row = mysql_fetch_row($result)) {
-                $query = "INSERT userchannels SET username = '".$user_name."', channelname = '".$row[0]."', state=1, set_on=NOW();";
-                mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
+                run_sql('INSERT userchannels SET username = "'.escape($user_name).'", channelname = "'.escape($row[0]).'", state=1, set_on=NOW();');
             }
             mysql_free_result($result);
         }
