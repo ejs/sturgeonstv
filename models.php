@@ -13,6 +13,12 @@
         }
     }
 
+    function log_event($message, $to){
+        $log = fopen($to, 'a');
+        fwrite($log, date("D j M Y - G:i:s")."\n\t".$message."\n");
+        fclose($log);
+    }
+
     function escape($s){
         $res = str_replace('\\', '\\\\', $s);
         $res = str_replace('"', '\"', $res);
@@ -21,6 +27,8 @@
     }
 
     function run_sql($query){
+        global $dblog;
+        log_event($query, $dblog);
         $tmp = mysql_query($query) or die ("Error in query:". $query." ".mysql_error());
         return $tmp;
     }
