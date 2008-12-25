@@ -33,12 +33,10 @@
 
     class User {
         public $channels;
-        public $visit_count;
         public $name;
 
         public function __construct(){
             $this->load_channels();
-            $this->visit_count = ++$_SESSION['counter'];
         }
 
         public function update_channel(){
@@ -163,18 +161,14 @@
                 $this->channels = $_SESSION['channels'];
             }
             else{
+                $this->channels = array();
                 $result = run_sql('SELECT channelName, standard, storeddays FROM channel WHERE storeddays > 0 ORDER BY channelname;');
                 if (mysql_num_rows($result) > 0) {
-                    $answer = array();
                     while($row = mysql_fetch_row($result)) {
                         $data = array("ChannelName"=>$row[0], "default?"=>$row[1]);
-                        array_push($answer, $data);
+                        array_push($this->channels, $data);
                     }
                     mysql_free_result($result);
-                    $this->channels = $answer;
-                }
-                else{
-                    $this->channels = array();
                 }
                 $_SESSION['channels'] = $this->channels;
             }

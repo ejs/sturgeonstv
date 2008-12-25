@@ -66,7 +66,6 @@
             }
         ?>
         </ul>
-        <p><?php echo $client->visit_count; ?></p>
     </div>
     <div id="main">
         <div id="infobar">
