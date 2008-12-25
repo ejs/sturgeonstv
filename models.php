@@ -20,9 +20,7 @@
     }
 
     function escape($s){
-        $res = str_replace('\\', '\\\\', $s);
-        $res = str_replace('"', '\"', $res);
-        $res = str_replace("'", "\'", $res);
+        $res = str_replace('"', '\"', $s);
         return $res;
     }
 
@@ -64,8 +62,7 @@
         }
 
         public function setShow($name, $rating){
-            $query = 'SELECT * FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";';
-            $result = run_sql($query);
+            $result = run_sql('SELECT * FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
             if (mysql_num_rows($result) > 0 ){
                 if ($rating){
                     run_sql('UPDATE tvshowrating SET rating='.escape($rating).', lastset=NOW() WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
@@ -80,10 +77,6 @@
         }
 
         public function getShows($start, $end, $minrating, $null){
-            $start = str_replace("starttime", "tvshowinstance.starttime", $start);
-            $start = str_replace("endtime", "tvshowinstance.endtime", $start);
-            $end = str_replace("starttime", "tvshowinstance.starttime", $end);
-            $end = str_replace("endtime", "tvshowinstance.endtime", $end);
             $channellist = array();
             foreach ($this->channels as $channel) {
                 if ($channel["default?"]){
@@ -91,14 +84,14 @@
                 }
             }
             $channellist = implode('", "', $channellist);
-            $query = 'SELECT tvshowinstance.showname, tvshowinstance.starttime, tvshowinstance.channelname, tvshowinstance.endtime, tvshowrating.rating ';
-            $query = $query.' FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND tvshowrating.username="'.escape($this->name).'" ';
-            $query = $query.' WHERE tvshowinstance.channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' ';
+            $query = 'SELECT tvshowinstance.showname, starttime, channelname, endtime, rating ';
+            $query = $query.' FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND username="'.escape($this->name).'" ';
+            $query = $query.' WHERE channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' ';
             if ($null){
-                $query = $query.' AND ( '.escape($minrating).' <= tvshowrating.rating OR tvshowrating.rating IS NULL ) ';
+                $query = $query.' AND ( '.escape($minrating).' <= rating OR rating IS NULL ) ';
             }
             else {
-                $query = $query.' AND '.escape($minrating).' <= tvshowrating.rating ';
+                $query = $query.' AND '.escape($minrating).' <= rating ';
             }
             $query = $query.' ORDER BY starttime;';
             $result = run_sql($query);
@@ -140,9 +133,9 @@
         }
 
         public function load_channels(){
-            $query = 'SELECT channel.channelName, userchannels.state ';
-            $query = $query.' FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND userchannels.username = "'.escape($this->name).'" ';
-            $query = $query.' WHERE channel.storeddays > 0 ORDER BY channel.channelname';
+            $query = 'SELECT channel.channelName, state ';
+            $query = $query.' FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND username = "'.escape($this->name).'" ';
+            $query = $query.' WHERE storeddays > 0 ORDER BY channel.channelname';
             $result = run_sql($query);
             $this->channels = array();
             if (mysql_num_rows($result) > 0) {
