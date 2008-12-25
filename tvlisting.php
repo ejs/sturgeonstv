@@ -17,14 +17,14 @@
                 echo "            <tr class='Show'>\n";
                 echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
                 echo "                <td>".$showinfo["Channel Name"]."</td>\n";
-                echo "                <td><a href=\"show.php?name=".$showinfo["Show Name"]."\">".$showinfo["Show Name"]."</a></td>\n";
+                echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\">".$showinfo["Show Name"]."</a></td>\n";
                 echo "                <td class='ratings'>";
-                echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating=0"><img src="x.png" /></a>';
+                echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating=0"><img src="x.png" /></a>';
                 for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                    echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="black.png" /></a>';
+                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'"><img src="black.png" /></a>';
                 }
                 for(;$a < 5; $a = $a + 1){
-                    echo '<a href="set.php?show='.$showinfo["Show Name"].'&rating='.($a+1).'"><img src="white.png" /></a>';
+                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'"><img src="white.png" /></a>';
                 }
                 echo "</td>\n";
                 echo "            </tr>\n";
@@ -56,11 +56,11 @@
             foreach($client->channels as $channelData){
                 if ($channelData['default?'] == 1){
                     echo "            <li class='active'>";
-                    echo "\n                <a href='switch.php?to=off&channel=".$channelData["ChannelName"]."'>".$channelData["ChannelName"]."</a>\n";
+                    echo "\n                <a href='switch.php?to=off&channel=".urlencode($channelData["ChannelName"])."'>".$channelData["ChannelName"]."</a>\n";
                 }
                 else{
                     echo "            <li class='inactive'>";
-                    echo "\n                <a href='switch.php?to=on&channel=".$channelData["ChannelName"]."'>".$channelData["ChannelName"]."</a>\n";
+                    echo "\n                <a href='switch.php?to=on&channel=".urlencode($channelData["ChannelName"])."'>".$channelData["ChannelName"]."</a>\n";
                 }
                 echo "            </li>\n";
             }
