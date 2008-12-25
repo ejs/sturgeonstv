@@ -6,4 +6,5 @@
     $databaseuser = 'tvphp';
     $databasepassword = 'password';
     $dblog   = 'file:///Library/WebServer/Private/TVUse.log';
+    date_default_timezone_set("Europe/London");
 ?>
