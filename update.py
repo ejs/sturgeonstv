@@ -65,7 +65,7 @@ def updateDate(connection, name, lastchecked, storeddays, daystart):
     delta = age.days
     if delta:
         print "Moving channel ", name, " last updated ", lastchecked, " back ", delta, "days."
-        connection.execute('UPDATE channel SET marker=0, storeddays="%s" WHERE channelname ="%s";'%(storeddays-delta, name))
+        connection.execute('UPDATE channel SET marker=0, storeddays="%s" WHERE channelname ="%s";'%(max(0, storeddays-delta), name))
 
 
 def findends(connection, starttime, channel, show):
