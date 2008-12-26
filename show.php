@@ -10,7 +10,7 @@
     {
         global $client;
         global $show_name;
-        echo "        <tr class='Info'>\n";
+        echo "        <tr class='Infob'>\n";
         echo "            <td colspan='3' style='text-align: center'>".$message."</td>\n";
         echo "        </tr>\n";
         foreach($client->getShowInstance($start, $end, $show_name) as $showinfo){

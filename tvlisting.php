@@ -10,11 +10,21 @@
         global $client;
         $shows = $client->getShows($start, $end, $minrating, $null);
         if ($shows or $null){
-            echo "        <tr class='Info'>\n";
+            if($null){
+                echo "        <tr class='Infoa' onclick='toggle(this);'>\n";
+            }
+            else{
+                echo "        <tr class='Infob'>\n";
+            }
             echo "            <td colspan='4' style='text-align: center'>".$message."</td>\n";
             echo "        </tr>\n";
             foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
-                echo "            <tr class='Show'>\n";
+                if($showinfo["Rating"] or $null==2){
+                    echo "            <tr class='Show'>\n";
+                }
+                else{
+                    echo "            <tr class='Show' style='display:a'>\n";
+                }
                 echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
                 echo "                <td>".$showinfo["Channel Name"]."</td>\n";
                 echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\">".$showinfo["Show Name"]."</a></td>\n";
@@ -76,17 +86,17 @@
             </ul>
         </div>
         <div id="body">
-            <table id="ShowInformation" align="center" cellpadding="10"><?php
+            <table id="ShowInformation" align="center"><?php
                 $a = "'".date("Y-m-d H:i:s", time())."' < endtime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time())."' ";
-                layout_shows($a, $b, "Shows currently on", 2);
+                layout_shows($a, $b, "Shows currently on", 2, 2);
                 $a = "'".date("Y-m-d H:i:s", time())."' < starttime ";
                 $b = "starttime < '".date("Y-m-d H:i:s", time()+(2*60*60))."' ";
-                layout_shows($a, $b, "Shows on soon", 3);
+                layout_shows($a, $b, "Shows on soon", 3, 2);
                 $a = "'".date("Y-m-d H:i:s", time()+(2*60*60))."' < starttime ";
                 $tmp = getdate();
                 $b = "starttime < '".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 23:59:59' ";
-                layout_shows($a, $b, "Shows on Later Today", 4);
+                layout_shows($a, $b, "Shows on Later Today", 4, 2);
                 for($c = 1; $c < 7; $c += 1){
                     $tmp = getdate(time()+(($c+1)*24*60*60));
                     $b = "starttime < '".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 00:00:00' ";

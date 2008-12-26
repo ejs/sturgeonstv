@@ -4,4 +4,5 @@
 <head>
     <title><?php echo $sitename; ?></title>
     <link rel="stylesheet" type="text/css" href="tvphp.css" />
+    <script type="text/javascript" src="tvphp.js"></script>
 </head>

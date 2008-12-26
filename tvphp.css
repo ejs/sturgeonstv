@@ -20,6 +20,8 @@ a:hover { text-decoration: underline; }
 }
 
 /* Body */
+
+
 #body{
     position: absolute;
     left: 0;
@@ -27,12 +29,34 @@ a:hover { text-decoration: underline; }
     width: 100%
 }
 
-#ShowInformation tr.Info{
-    background: #222;
-    color: #ddd;
+#ShowInformation{ border-collapse: collapse; }
+
+#ShowInformation tr td{
+    border-width: .25em;
+    padding: .5em 0;
+    border-style: none;
 }
 
-#ShowInformation tr.Show:Hover{
+#ShowInformation tr.Infoa td, #ShowInformation tr.Infob td{
+    background: #222;
+    color: #ddd;
+    border-color: gray black black gray;
+    border-style: solid;
+}
+
+#ShowInformation tr.Infoa td:Hover {
+    border-color: black gray gray black;
+    background: #ddd;
+    color: #222;
+}
+
+#ShowInformation tr.Infoa td:Active {
+    border-color: black gray gray black;
+    background: #FFF;
+    color: #888;
+}
+
+#ShowInformation tr.Show:Hover {
     background: #ddd;
     color: #222;
 }
