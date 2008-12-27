@@ -7,3 +7,8 @@ function toggle(item){
         n = n.nextSibling;
     }
 }
+
+function channelSwitch(name){
+    window.alert(name);
+    return false;
+}

@@ -19,12 +19,10 @@
             echo "            <td colspan='4' style='text-align: center'>".$message."</td>\n";
             echo "        </tr>\n";
             foreach($client->getShows($start, $end, $minrating, $null) as $showinfo){
-                if($showinfo["Rating"] or $null==2){
+                if($showinfo["Rating"] or $null==2)
                     echo "            <tr class='Show'>\n";
-                }
-                else{
+                else
                     echo "            <tr class='Show' style='display:none'>\n";
-                }
                 echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
                 echo "                <td>".$showinfo["Channel Name"]."</td>\n";
                 echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\" target='_blank'>".$showinfo["Show Name"]."</a></td>\n";
@@ -66,7 +64,7 @@
             foreach($client->channels as $channelData){
                 if ($channelData['default?'] == 1){
                     echo "            <li class='active'>";
-                    echo "\n                <a href='switch.php?to=off&channel=".urlencode($channelData["ChannelName"])."'>".$channelData["ChannelName"]."</a>\n";
+                    echo "\n                <a href='switch.php?to=off&channel=".urlencode($channelData["ChannelName"])."' onclick='return channelSwitch(\"".$channelData["ChannelName"]."\");'>".$channelData["ChannelName"]."</a>\n";
                 }
                 else{
                     echo "            <li class='inactive'>";
