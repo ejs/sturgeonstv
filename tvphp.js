@@ -3,23 +3,21 @@ function setVisibilities(){
     for(var i in allshows){
         var show = allshows[i];
         var unrated = (show.showRating == undefined ? true : show.showRating);
-        show.style;
-        show.style.display = unrated ? "" : "none";
+        var channel = (show.channelOff == undefined ? false : show.channelOff);
+        if (show.style)
+            show.style.display = (unrated && !channel) ? "" : "none";
     }
 }
 
 function toggle(item){
     var n = item.nextSibling;
-    if (item.showUnrated != undefined){
+    if (item.showUnrated != undefined)
         item.showUnrated = item.showUnrated ? false : true;
-    }
-    else{
+    else
         item.showUnrated = false;
-    }
     while (n.className != "Infoa" && n.className != "Infob"){
-        if(n.className == "Show" && n.childNodes[7].className == "ratings:0"){
+        if(n.className == "Show" && n.childNodes[7].className == "ratings:0")
             n.showRating = item.showUnrated;
-        }
         n = n.nextSibling;
     }
     setVisibilities();
