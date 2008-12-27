@@ -27,7 +27,7 @@
 <?php include("head.php") ?>
 <body>
 <?php echo $show_name; ?>
-            <table id="ShowInformation" align="center" cellpadding="10"><?php
+            <table id="ShowInformation" align="center"><?php
                 $tmp = getdate();
                 $a = "'".$tmp['year'].'-'.$tmp['mon'].'-'.$tmp['mday']." 00:00:00'";
                 $tmp = getdate(time()+(24*60*60));

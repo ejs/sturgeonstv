@@ -23,11 +23,11 @@
                     echo "            <tr class='Show'>\n";
                 }
                 else{
-                    echo "            <tr class='Show' style='display:a'>\n";
+                    echo "            <tr class='Show' style='display:none'>\n";
                 }
                 echo "                <td>".strftime("%H:%M", $showinfo["Start Time"])." - ".strftime("%H:%M", $showinfo["End Time"])."</td>\n";
                 echo "                <td>".$showinfo["Channel Name"]."</td>\n";
-                echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\">".$showinfo["Show Name"]."</a></td>\n";
+                echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\" target='_blank'>".$showinfo["Show Name"]."</a></td>\n";
                 echo "                <td class='ratings:".$showinfo["Rating"]."'>";
                 echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating=0"><img src="x.png" /></a>';
                 for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){

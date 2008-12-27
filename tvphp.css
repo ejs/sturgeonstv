@@ -33,7 +33,7 @@ a:hover { text-decoration: underline; }
 
 #ShowInformation tr td{
     border-width: .25em;
-    padding: .5em 0;
+    padding: .5em;
     border-style: none;
 }
 
