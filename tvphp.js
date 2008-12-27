@@ -1,3 +1,15 @@
+function touch(url){
+    window.alert(url);
+    var tmp = new XMLHttpRequest();
+    tmp.open("GET", url, true);
+    tmp.onreadystatechange = function(){
+        if (tmp.readyState == 4){
+            window.alert(tmp.document);
+        }
+    };
+    tmp.send([]);
+}
+
 function setVisibilities(){
     var allshows = document.getElementsByClassName("Show");
     for(var i in allshows){
@@ -32,5 +44,6 @@ function channelSwitch(name){
         }
     }
     setVisibilities();
+    touch('http://localhost/switchajax.php?to=off&channel='+name);
     return false;
 }
