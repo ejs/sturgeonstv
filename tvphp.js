@@ -66,7 +66,6 @@ function setRating(rating, name){
             }
         }
     }
-    setVisibilities();
     touch("http://localhost/setajax.php?show="+name+"&rating="+rating)
     return false;
 }
