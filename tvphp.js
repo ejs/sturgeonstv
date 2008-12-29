@@ -32,7 +32,7 @@ function toggle(item) {
 
 function channelSwitch(name) {
     var base = document.getElementById("ShowInformation");
-    base[name] = (base[name] == undefined || base[name]);
+    base[name] = !(base[name] == undefined || base[name]);
     touch('http://localhost/switchajax.php?to='+(base[name]?'on':'off')+'&channel='+name);
     document.getElementById(name).className = base[name] ? "active" : "inactive";
     setVisibilities();
