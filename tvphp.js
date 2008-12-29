@@ -21,8 +21,9 @@ function setVisibilities(){
         }
         else if(show.className == "Show"){
             var unrate = (show.childNodes[7].className == "ratings:0") ? groupflag : true;
-            var channel = (show.channelOff == undefined ? false : show.channelOff);
-            show.style.display = (unrate && !channel) ? "" : "none";
+            var channelName = show.childNodes[3].textContent;
+            var channel = (base[channelName] == undefined) ? true : base[channelName];
+            show.style.display = (unrate && channel) ? "" : "none";
         }
     }
 }
@@ -45,5 +46,7 @@ function channelSwitch(name){
         base[name] = true;
         touch('http://localhost/switchajax.php?to=on&channel='+name);
     }
+    // update local display
+    setVisibilities();
     return false;
 }
