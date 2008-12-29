@@ -4,14 +4,15 @@ function touch(url){
     tmp.open("GET", url, true);
     tmp.onreadystatechange = function(){
         if (tmp.readyState == 4){
-            window.alert(tmp.document);
+            var a = 1;
         }
     };
     tmp.send([]);
 }
 
 function setVisibilities(){
-    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    var base = document.getElementById("ShowInformation");
+    var allshows = base.childNodes[1].childNodes;
     var groupflag = '';
     for(var i in allshows){
         var show = allshows[i];
@@ -35,7 +36,14 @@ function toggle(item){
 }
 
 function channelSwitch(name){
-    setVisibilities();
-    touch('http://localhost/switchajax.php?to=off&channel='+name);
+    var base = document.getElementById("ShowInformation");
+    if(base[name] == undefined || base[name]) {
+        base[name] = false;
+        touch('http://localhost/switchajax.php?to=off&channel='+name);
+    }
+    else{
+        base[name] = true;
+        touch('http://localhost/switchajax.php?to=on&channel='+name);
+    }
     return false;
 }
