@@ -11,9 +11,9 @@ function touch(url){
 }
 
 function setVisibilities(){
-    var allshows = document.getElementsByClassName("Show");
-    for(var i in allshows){
-        var show = allshows[i];
+    var allshows = document.getElementById("ShowInformation").childNodes[1];
+    for(var i in allshows.childNodes){
+        var show = allshows.childNodes[i];
         var unrated = (show.showRating == undefined ? true : show.showRating);
         var channel = (show.channelOff == undefined ? false : show.channelOff);
         if (show.style)
@@ -36,9 +36,9 @@ function toggle(item){
 }
 
 function channelSwitch(name){
-    var allshows = document.getElementsByClassName("Show");
-    for(var i in allshows){
-        var show = allshows[i];
+    var allshows = document.getElementsById("ShowInformation").childNodes[1];
+    for(var i in allshows.childNodes){
+        var show = allshows[i].childNodes;
         if (show.childNodes && show.childNodes[3].textContent == name){
             show.channelOff = show.channelOff ? false : true;
         }
