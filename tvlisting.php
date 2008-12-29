@@ -63,11 +63,11 @@
 <?php
             foreach($client->channels as $channelData){
                 if ($channelData['default?'] == 1){
-                    echo "            <li class='active'>";
+                    echo "            <li class='active' id='".$channelData["ChannelName"]."'>";
                     echo "\n                <a href='switch.php?to=off&channel=".urlencode($channelData["ChannelName"])."' onclick='return channelSwitch(\"".$channelData["ChannelName"]."\");'>".$channelData["ChannelName"]."</a>\n";
                 }
                 else{
-                    echo "            <li class='inactive'>";
+                    echo "            <li class='inactive' id='".$channelData["ChannelName"]."'>";
                     echo "\n                <a href='switch.php?to=on&channel=".urlencode($channelData["ChannelName"])."'>".$channelData["ChannelName"]."</a>\n";
                 }
                 echo "            </li>\n";

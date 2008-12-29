@@ -1,5 +1,4 @@
 function touch(url){
-    window.alert(url);
     var tmp = new XMLHttpRequest();
     tmp.open("GET", url, true);
     tmp.onreadystatechange = function(){
@@ -46,7 +45,8 @@ function channelSwitch(name){
         base[name] = true;
         touch('http://localhost/switchajax.php?to=on&channel='+name);
     }
-    // update local display
+    var disp = document.getElementById(name);
     setVisibilities();
+    disp.className = base[name] ? "active" : "inactive";
     return false;
 }
