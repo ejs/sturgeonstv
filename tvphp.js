@@ -50,3 +50,18 @@ function channelSwitch(name){
     disp.className = base[name] ? "active" : "inactive";
     return false;
 }
+
+function setRating(rating, name){
+    var base = document.getElementById("ShowInformation");
+    var allshows = base.childNodes[1].childNodes;
+    var groupflag = '';
+    for(var i in allshows){
+        var show = allshows[i];
+        if (show.className == "Show" && show.childNodes[5].textContent == name){
+            show.childNodes[7].className = "ratings:"+rating;
+            window.alert(show.textContent);
+        }
+    }
+    setVisibilities();
+    return false;
+}

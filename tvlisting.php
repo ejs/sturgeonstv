@@ -27,12 +27,12 @@
                 echo "                <td>".$showinfo["Channel Name"]."</td>\n";
                 echo "                <td><a href=\"show.php?name=".urlencode($showinfo["Show Name"])."\" target='_blank'>".$showinfo["Show Name"]."</a></td>\n";
                 echo "                <td class='ratings:".$showinfo["Rating"]."'>";
-                echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating=0"><img src="x.png" /></a>';
+                echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating=0" onclick="return setRating(0, \''.$showinfo["Show Name"].'\')"><img src="x.png" /></a>';
                 for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
-                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'"><img src="black.png" /></a>';
+                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'" onclick="return setRating('.($a+1).', \''.$showinfo["Show Name"].'\')"><img src="black.png" /></a>';
                 }
                 for(;$a < 5; $a = $a + 1){
-                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'"><img src="white.png" /></a>';
+                    echo '<a href="set.php?show='.urlencode($showinfo["Show Name"]).'&rating='.($a+1).'" onclick="return setRating('.($a+1).', \''.$showinfo["Show Name"].'\')"><img src="white.png" /></a>';
                 }
                 echo "</td>\n";
                 echo "            </tr>\n";
