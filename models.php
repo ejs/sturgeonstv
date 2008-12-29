@@ -60,17 +60,15 @@
         }
 
         public function setShow($name, $rating){
-            $result = run_sql('SELECT * FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
-            if (mysql_num_rows($result) > 0 ){
-                if ($rating){
+            if ($rating){
+                $result = run_sql('SELECT * FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
+                if (mysql_num_rows($result) > 0 )
                     run_sql('UPDATE tvshowrating SET rating='.escape($rating).', lastset=NOW() WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
-                }
-                else{
-                    run_sql('DELETE FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
-                }
+                else
+                    run_sql('INSERT tvshowrating SET rating='.escape($rating).', lastset=NOW(), username="'.escape($this->name).'", showname="'.escape($name).'";');
             }
             else{
-                run_sql('INSERT tvshowrating SET rating='.escape($rating).', lastset=NOW(), username="'.escape($this->name).'", showname="'.escape($name).'";');
+                run_sql('DELETE FROM tvshowrating WHERE username="'.escape($this->name).'" AND showname="'.escape($name).'";');
             }
         }
 
