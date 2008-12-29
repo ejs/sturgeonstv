@@ -5,12 +5,10 @@
     mysql_select_db($databasename) or die ("Unable to select database!");
 
     function load_user(){
-        if ($_COOKIE and array_key_exists("validuser", $_COOKIE)){
+        if ($_COOKIE and array_key_exists("validuser", $_COOKIE))
             return new DBUser($_COOKIE["validuser"]);
-        }
-        else{
+        else
             return new SessionUser();
-        }
     }
 
     function log_event($message, $to){
@@ -40,15 +38,11 @@
         }
 
         public function update_channel(){
-            if ($_GET){
-                $this->setChannel($_GET["channel"], $_GET["to"] == "on");
-            }
+            if ($_GET) $this->setChannel($_GET["channel"], $_GET["to"] == "on");
         }
 
         public function update_show(){
-            if ($_GET){
-                $this->setShow($_GET["show"], $_GET["rating"]);
-            }
+            if ($_GET) $this->setShow($_GET["show"], $_GET["rating"]);
         }
 
     }
@@ -75,29 +69,24 @@
         public function getShows($start, $end, $minrating, $null){
             $channellist = array();
             foreach ($this->channels as $channel) {
-                if ($channel["default?"]){
-                    array_push($channellist, $channel["ChannelName"]);
-                }
+                if ($channel["default?"]) array_push($channellist, $channel["ChannelName"]);
             }
             $channellist = implode('", "', $channellist);
             $query = 'SELECT tvshowinstance.showname, starttime, channelname, endtime, rating ';
             $query = $query.' FROM tvshowinstance LEFT JOIN tvshowrating ON tvshowinstance.showname = tvshowrating.showname AND username="'.escape($this->name).'" ';
             $query = $query.' WHERE channelname IN ("'.$channellist.'") AND '.$start.' AND '.$end.' ';
-            if ($null){
+            if ($null)
                 $query = $query.' AND ( '.escape($minrating).' <= rating OR rating IS NULL ) ';
-            }
-            else {
+            else
                 $query = $query.' AND '.escape($minrating).' <= rating ';
-            }
             $query = $query.' ORDER BY starttime;';
             $result = run_sql($query);
             $answer = array();
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
                     $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>$row[4]);
-                    if (!$data["Rating"]){
+                    if (!$data["Rating"])
                         $data["Rating"] = 0;
-                    }
                     array_push($answer, $data);
                 }
                 mysql_free_result($result);
@@ -108,9 +97,7 @@
         public function getShowInstance($start, $end, $name){
             $channellist = array();
             foreach ($this->channels as $channel) {
-                if ($channel["default?"]){
-                    array_push($channellist, $channel["ChannelName"]);
-                }
+                if ($channel["default?"]) array_push($channellist, $channel["ChannelName"]);
             }
             $channellist = implode('", "', $channellist);
             $query = 'SELECT showname, starttime, channelname, endtime, discription FROM tvshowinstance';
@@ -135,21 +122,18 @@
             $result = run_sql($query);
             $this->channels = array();
             if (mysql_num_rows($result) > 0) {
-                while($row = mysql_fetch_row($result)) {
+                while($row = mysql_fetch_row($result))
                     array_push($this->channels, array("ChannelName"=>$row[0], "default?"=>$row[1]));
-                }
                 mysql_free_result($result);
             }
         }
 
         public function setChannel($ChannelName, $state){
             $result = run_sql('SELECT * FROM userchannels WHERE username="'.escape($this->name).'" AND channelname="'.escape($ChannelName).'";');
-            if (mysql_num_rows($result) > 0 ){
+            if (mysql_num_rows($result) > 0)
                 run_sql('UPDATE userchannels SET state="'.escape($state).'" WHERE username = "'.escape($this->name).'" AND channelname = "'.escape($ChannelName).'";');
-            }
-            else{
+            else
                 run_sql('INSERT userchannels SET state="'.escape($state).'", username = "'.escape($this->name).'", channelname = "'.escape($ChannelName).'";');
-            }
         }
     }
 
@@ -175,9 +159,7 @@
         public function getShows($start, $end, $minrating, $null){
             $channellist = array();
             foreach ($this->channels as $channel) {
-                if ($channel["default?"]){
-                    array_push($channellist, $channel["ChannelName"]);
-                }
+                if ($channel["default?"]) array_push($channellist, $channel["ChannelName"]);
             }
             $channellist = implode('", "', $channellist);
             $query = 'SELECT showname, starttime, channelname, endtime FROM tvshowinstance';
@@ -199,13 +181,10 @@
 
         public function setChannel($ChannelName, $state){
             foreach($_SESSION['channels'] as $key=>$info){
-                if ($info['ChannelName'] == $ChannelName){
-                    $_SESSION['channels'][$key]['default?'] = $state;
-                }
+                if ($info['ChannelName'] == $ChannelName) $_SESSION['channels'][$key]['default?'] = $state;
             }
         }
 
-        public function setShow($name, $rating){
-        }
+        public function setShow($name, $rating){ }
     }
 ?>

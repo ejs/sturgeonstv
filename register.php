@@ -20,9 +20,8 @@
         # set default channels
         $result = run_sql('SELECT channelName FROM channel WHERE standard = 1;');
         if (mysql_num_rows($result) > 0) {
-            while($row = mysql_fetch_row($result)) {
+            while($row = mysql_fetch_row($result))
                 run_sql('INSERT userchannels SET username = "'.escape($user_name).'", channelname = "'.escape($row[0]).'", state=1, set_on=NOW();');
-            }
             mysql_free_result($result);
         }
 
