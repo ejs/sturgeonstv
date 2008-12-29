@@ -52,16 +52,21 @@ function channelSwitch(name){
 }
 
 function setRating(rating, name){
-    var base = document.getElementById("ShowInformation");
-    var allshows = base.childNodes[1].childNodes;
-    var groupflag = '';
+    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
     for(var i in allshows){
-        var show = allshows[i];
-        if (show.className == "Show" && show.childNodes[5].textContent == name){
-            show.childNodes[7].className = "ratings:"+rating;
-            window.alert(show.textContent);
+        if (allshows[i].className == "Show" && allshows[i].childNodes[5].textContent == name){
+            var ratingdisplay = allshows[i].childNodes[7];
+            ratingdisplay.className = "ratings:"+rating;
+            for(var j in [0, 1, 2, 3, 4, 5]){
+                var img = ratingdisplay.childNodes[''+j].childNodes['0'];
+                if(j == 0)
+                    img.src = 'x.png';
+                else
+                    img.src = (j <= rating) ? 'black.png' : 'white.png';
+            }
         }
     }
     setVisibilities();
+    touch("http://localhost/setajax.php?show="+name+"&rating="+rating)
     return false;
 }
