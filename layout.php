@@ -19,13 +19,12 @@ function layout_shows($start, $end, $message, $minrating=1, $null=1)
                 <td><?php echo $showinfo['Channel Name']; ?></td>
                 <td><a href="show.php?name=<?php echo urlencode($showinfo["Show Name"]); ?>" target='_blank'><?php echo $showinfo["Show Name"]; ?></a></td>
                 <td class="ratings:<?php echo $showinfo['Rating']; ?>"><a href="set.php?show=<?php echo urlencode($showinfo["Show Name"]); ?>&rating=0" onclick="return setRating(0, '<?php echo $showinfo["Show Name"]; ?>')"><img src="x.png" /></a><?php
-?><?php   for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){ ?><?php
+          for($a=0 ; $a < $showinfo["Rating"] ; $a = $a + 1){
                     ?><a href="set.php?show=<?php echo urlencode($showinfo["Show Name"]); ?>&rating=<?php echo $a+1; ?>" onclick='return setRating(<?php echo $a+1; ?>, "<?php echo $showinfo["Show Name"]; ?>")'><img src="black.png" /></a><?php
-?><?php   } ?>
-<?php   for(;$a < 5; $a = $a + 1) { ?><?php
+          }
+          for(;$a < 5; $a = $a + 1) {
                     ?><a href="set.php?show=<?php echo urlencode($showinfo["Show Name"]); ?>&rating=<?php echo $a+1; ?>" onclick='return setRating(<?php echo $a+1; ?>, "<?php echo $showinfo["Show Name"]; ?>")'><img src="white.png" /></a><?php
-?><?php   } ?>
-                </td>
+          } ?></td>
             </tr>
 <?php }
 } ?>
