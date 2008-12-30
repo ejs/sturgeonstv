@@ -25,10 +25,10 @@ include("head.php")
 <?php foreach($client->channels as $channelData){
         if ($channelData['default?'] == 1){?>
             <li class='active' id='<?php echo $channelData["ChannelName"] ?>'>
-                <a href='switch.php?to=off&channel=<?php echo urlencode($channelData["ChannelName"]); ?>' onclick='return channelSwitch("<?php echo $channelData["ChannelName"]; ?>")'><?php echo$channelData["ChannelName"] ?></a>
+                <a href='switch.php?to=off&amp;channel=<?php echo urlencode($channelData["ChannelName"]); ?>' onclick='return channelSwitch("<?php echo $channelData["ChannelName"]; ?>")'><?php echo$channelData["ChannelName"] ?></a>
 <?php   } else{ ?>
             <li class='inactive' id='<?php echo $channelData["ChannelName"] ?>'>
-                <a href='switch.php?to=on&channel=<?php echo urlencode($channelData["ChannelName"]); ?>'><?php echo$channelData["ChannelName"] ?></a>
+                <a href='switch.php?to=on&amp;channel=<?php echo urlencode($channelData["ChannelName"]); ?>'><?php echo$channelData["ChannelName"] ?></a>
 <?php   }?>
             </li>
 <?php } ?>

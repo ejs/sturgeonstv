@@ -8,16 +8,21 @@ function setVisibilities() {
     var base = document.getElementById("ShowInformation");
     var allshows = base.childNodes[1].childNodes;
     var groupflag = '';
+    var minrating = 0;
     for(var i in allshows) {
         var show = allshows[i];
         if (show.className == "Infoa" || show.className == "Infob") {
-            groupflag = (show.showUnrated != undefined) ? show.showUnrated : true;
+            groupflag = (show.showUnrated != undefined) ? show.showUnrated : (show.getAttribute("unrated") == "on");
+            minrating = show.getAttribute("minrating");
         }
         else if(show.className == "Show") {
-            var unrate = (show.childNodes[7].className == "ratings:0") ? groupflag : true;
+            var r = show.childNodes[7].className.charAt(show.childNodes[7].className.length-1);
             var channelName = show.childNodes[3].textContent;
+
+            var rating = (r == 0 || minrating < r || minrating == r);
+            var unrated = (r != 0 || groupflag);
             var channel = (base[channelName] == undefined) ? true : base[channelName];
-            show.style.display = (unrate && channel) ? "" : "none";
+            show.style.display = ( unrated && channel && rating) ? "" : "none";
         }
     }
 }
@@ -26,7 +31,7 @@ function toggle(item) {
     if (item.showUnrated != undefined)
         item.showUnrated = item.showUnrated ? false : true;
     else
-        item.showUnrated = false;
+        item.showUnrated = !(item.getAttribute("unrated") == "on");
     setVisibilities();
 }
 
