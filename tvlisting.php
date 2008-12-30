@@ -47,7 +47,7 @@ include("head.php")
 <?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 2, 2); ?>
 <?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2), "Soon", 3, 2); ?>
 <?php layout_shows(convertTime(2)." < starttime ", "starttime < ".convertDate(1), "Later Today", 4, 2); ?>
-<?php layout_shows(convertDate($c)." < starttime ", "starttime < ".convertDate($c+1), "Tomorrow", 4, 1); ?>
+<?php layout_shows(convertDate(1)." < starttime ", "starttime < ".convertDate(2), "Tomorrow", 4, 1); ?>
 <?php for($c = 2; $c < 7; $c += 1){
     $tmp = getdate(time()+($c*24*60*60));
     layout_shows(convertDate($c)." < starttime ", "starttime < ".convertDate($c+1), "${tmp['mday']}  ${tmp['month']} ${tmp['year']}", 5, 0);
