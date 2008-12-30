@@ -57,7 +57,7 @@ a:hover { text-decoration: underline; }
 }
 
 #ShowInformation tr.Show:Hover {
-    background: #ddd;
+    background: #bbb;
     color: #222;
 }
 

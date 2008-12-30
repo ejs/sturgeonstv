@@ -27,6 +27,37 @@ function setVisibilities() {
     }
 }
 
+function getTime(item, name) {
+    var starttime = item.childNodes[1].getAttribute(name).split(':');
+    var starttime = new Date(starttime[2], starttime[1], starttime[0], starttime[3], starttime[4], 0, 0);
+    return starttime;
+}
+
+function hover(item) {
+    var start = getTime(item, "starttime");
+    var end = getTime(item, "endtime");
+    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    for(var i in allshows) {
+        var show = allshows[i];
+        if(show.className == "Show" && item.textContent != show.textContent) {
+            var s = getTime(show, "starttime");
+            var e = getTime(show, "endtime");
+            if ((s <= start && start < e) || (s < end && end <= e) || (start <= s && e <= end))
+                show.style.background = "#ddd";
+        }
+    }
+}
+
+function leave(item) {
+    item.style.background = "";
+    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    for(var i in allshows) {
+        var show = allshows[i];
+        if(show.className == "Show")
+            show.style.background = "";
+    }
+}
+
 function toggle(item) {
     if (item.showUnrated != undefined)
         item.showUnrated = item.showUnrated ? false : true;
