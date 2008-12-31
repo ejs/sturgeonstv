@@ -79,7 +79,7 @@ function toggle(item) {
 function channelSwitch(name) {
     var base = document.getElementById("ShowInformation");
     base[name] = !(base[name] == undefined || base[name]);
-    touch(""+location.protocol+"//"+location.host+'/switchajax.php?to='+(base[name]?'on':'off')+'&channel='+name);
+    touch(""+location.protocol+"//"+location.host+'/switch.php?to='+(base[name]?'on':'off')+'&channel='+name+'&ajax=1');
     document.getElementById(name.replace(/ /g, '_')).className = base[name] ? "active" : "inactive";
     setVisibilities();
     return false;
@@ -101,7 +101,6 @@ function setRating(rating, name) {
             }
         }
     }
-    var link = ""+location.protocol+"//"+location.host+"/setajax.php?show="+escape(name)+"&rating="+rating;
-    touch(link);
+    touch(""+location.protocol+"//"+location.host+"/set.php?show="+escape(name)+"&rating="+rating+"&ajax=1");
     return false;
 }

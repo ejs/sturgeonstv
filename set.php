@@ -5,5 +5,6 @@
     session_start();
     $client = load_user();
     $client->update_show();
-    header('Location: tvlisting.php') ;
+    if ($_GET && $_GET["ajax"]);
+    else header('Location: tvlisting.php') ;
 ?>
