@@ -69,7 +69,7 @@ function toggle(item) {
 function channelSwitch(name) {
     var base = document.getElementById("ShowInformation");
     base[name] = !(base[name] == undefined || base[name]);
-    touch('http://localhost/switchajax.php?to='+(base[name]?'on':'off')+'&channel='+name);
+    touch(""+location.protocol+"//"+location.host+'/switchajax.php?to='+(base[name]?'on':'off')+'&channel='+name);
     document.getElementById(name.replace(/ /g, '_')).className = base[name] ? "active" : "inactive";
     setVisibilities();
     return false;
@@ -91,7 +91,7 @@ function setRating(rating, name) {
             }
         }
     }
-    var link = "http://localhost/setajax.php?show="+escape(name)+"&rating="+rating;
+    var link = ""+location.protocol+"//"+location.host+"/setajax.php?show="+escape(name)+"&rating="+rating;
     touch(link);
     return false;
 }
