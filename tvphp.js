@@ -4,9 +4,18 @@ function touch(url) {
     tmp.send([]);
 }
 
+function getChildClassed(item, classPattern){
+    for (var i in item.childNodes){
+        var point = item.childNodes[i];
+        if(point.className && point.className.search(classPattern) != -1)
+            return point;
+    }
+    return [];
+}
+
 function setVisibilities() {
     var base = document.getElementById("ShowInformation");
-    var allshows = base.childNodes[1].childNodes;
+    var allshows = getChildClassed(base, "tbody").childNodes;
     var groupflag = '';
     var minrating = 0;
     for(var i in allshows) {
@@ -16,8 +25,9 @@ function setVisibilities() {
             minrating = show.getAttribute("minrating");
         }
         else if(show.className == "Show") {
-            var r = show.childNodes[7].className.charAt(show.childNodes[7].className.length-1);
-            var channelName = show.childNodes[3].textContent;
+            var r = getChildClassed(show, /rating/);
+            var r = r.className.charAt(r.className.length-1);
+            var channelName = getChildClassed(show, "channel").textContent;
 
             var rating = (r == 0 || minrating < r || minrating == r);
             var unrated = (r != 0 || groupflag);
@@ -28,7 +38,7 @@ function setVisibilities() {
 }
 
 function getTime(item, name) {
-    var starttime = item.childNodes[1].getAttribute(name).split(':');
+    var starttime = getChildClassed(item, /time/).getAttribute(name).split(':');
     var starttime = new Date(starttime[2], starttime[1], starttime[0], starttime[3], starttime[4], 0, 0);
     return starttime;
 }
@@ -36,7 +46,7 @@ function getTime(item, name) {
 function hover(item) {
     var start = getTime(item, "starttime");
     var end = getTime(item, "endtime");
-    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    var allshows = getChildClassed(document.getElementById("ShowInformation"), "tbody").childNodes;
     for(var i in allshows) {
         var show = allshows[i];
         if(show.className == "Show" && item.textContent != show.textContent) {
@@ -50,7 +60,7 @@ function hover(item) {
 
 function leave(item) {
     item.style.background = "";
-    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    var allshows = getChildClassed(document.getElementById("ShowInformation"), "tbody").childNodes;
     for(var i in allshows) {
         var show = allshows[i];
         if(show.className == "Show")
@@ -77,13 +87,13 @@ function channelSwitch(name) {
 
 function setRating(rating, name) {
     setVisibilities();
-    var allshows = document.getElementById("ShowInformation").childNodes[1].childNodes;
+    var allshows = getChildClassed(document.getElementById("ShowInformation"), /tbody/).childNodes;
     for(var i in allshows) {
-        if (allshows[i].className == "Show" && allshows[i].childNodes[5].textContent == name) {
-            var ratingdisplay = allshows[i].childNodes[7];
+        if (allshows[i].className == "Show" && getChildClassed(allshows[i], /show/).textContent == name) {
+            var ratingdisplay = getChildClassed(allshows[i], /rating/);
             ratingdisplay.className = "ratings:"+rating;
             for(var j in [0, 1, 2, 3, 4, 5]) {
-                var img = ratingdisplay.childNodes[''+j].childNodes['0'];
+                var img = getChildClassed(getChildClassed(ratingdisplay, j), /img/);
                 if(j == 0)
                     img.src = 'x.png';
                 else
