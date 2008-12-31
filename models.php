@@ -116,7 +116,6 @@
             return $answer;
         }
 
-
         public function load_channels(){
             $query = 'SELECT channel.channelName, state ';
             $query = $query.' FROM channel LEFT JOIN userchannels ON channel.channelname = userchannels.channelname AND username = "'.escape($this->name).'" ';
@@ -173,6 +172,8 @@
                 if (mysql_num_rows($result) > 0) {
                     while($row = mysql_fetch_row($result)) {
                         $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
+                        $data["HTML Name"] = htmlentities($data["Show Name"], ENT_QUOTES);
+                        $data["URL Name"] = urlencode($data["Show Name"]);
                         array_push($answer, $data);
                     }
                     mysql_free_result($result);
