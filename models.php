@@ -105,6 +105,8 @@
             if (mysql_num_rows($result) > 0) {
                 while($row = mysql_fetch_row($result)) {
                     $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>$row[4]);
+                    $data["HTML Name"] = htmlentities($data["Show Name"], ENT_QUOTES);
+                    $data["URL Name"] = urlencode($data["Show Name"]);
                     if (!$data["Rating"])
                         $data["Rating"] = 0;
                     array_push($answer, $data);

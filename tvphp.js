@@ -91,6 +91,7 @@ function setRating(rating, name) {
             }
         }
     }
-    touch("http://localhost/setajax.php?show="+name+"&rating="+rating);
+    var link = "http://localhost/setajax.php?show="+escape(name)+"&rating="+rating;
+    touch(link);
     return false;
 }
