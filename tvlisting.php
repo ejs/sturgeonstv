@@ -24,10 +24,10 @@ include("head.php")
         <ul>
 <?php foreach($client->channels as $channelData){
         if ($channelData['default?'] == 1){?>
-            <li class='active' id='<?php echo $channelData["ChannelName"] ?>'>
+            <li class='active' id='<?php echo str_replace(' ', '_', $channelData["ChannelName"]); ?>'>
                 <a href='switch.php?to=off&amp;channel=<?php echo urlencode($channelData["ChannelName"]); ?>' onclick='return channelSwitch("<?php echo $channelData["ChannelName"]; ?>")'><?php echo$channelData["ChannelName"] ?></a>
 <?php   } else{ ?>
-            <li class='inactive' id='<?php echo $channelData["ChannelName"] ?>'>
+            <li class='inactive' id='<?php echo str_replace(' ', '_', $channelData["ChannelName"]); ?>'>
                 <a href='switch.php?to=on&amp;channel=<?php echo urlencode($channelData["ChannelName"]); ?>'><?php echo$channelData["ChannelName"] ?></a>
 <?php   }?>
             </li>
@@ -43,7 +43,7 @@ include("head.php")
             </ul>
         </div>
         <div id="body">
-            <table id="ShowInformation" align="center">
+            <table id="ShowInformation">
 <?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 2, 2); ?>
 <?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2), "Soon", 3, 2); ?>
 <?php layout_shows(convertTime(2)." < starttime ", "starttime < ".convertDate(1), "Later Today", 4, 2); ?>
