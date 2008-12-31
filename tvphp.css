@@ -11,8 +11,8 @@ a:hover { text-decoration: underline; }
 /* Center Block */
 #main {
     position: absolute;
-    left: 12%;
-    width: 88%;
+    left: 15%;
+    width: 85%;
 }
 
 /* Body */
@@ -64,7 +64,7 @@ a img { border: none; }
     overflow: auto;
     left: 0;
     top: 0;
-    width: 12%;
+    width: 15%;
     height: 100%;
     background: #eef;
     text-align: center;

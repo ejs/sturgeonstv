@@ -99,7 +99,7 @@
                 $query = $query.' AND ( '.escape($minrating).' <= rating OR rating IS NULL ) ';
             else
                 $query = $query.' AND '.escape($minrating).' <= rating ';
-            $query = $query.' ORDER BY starttime;';
+            $query = $query.' ORDER BY starttime, endtime, channelname;';
             $result = run_sql($query);
             $answer = array();
             if (mysql_num_rows($result) > 0) {

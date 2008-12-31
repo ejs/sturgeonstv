@@ -49,7 +49,7 @@ include("head.php")
         <table id="ShowInformation">
             <tbody class="tbody">
 <?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 2, 2); ?>
-<?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2), "Soon", 3, 2); ?>
+<?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2)." AND starttime < ".convertDate(1), "Soon", 3, 2); ?>
 <?php layout_shows(convertTime(2)." < starttime ", "starttime < ".convertDate(1), "Later Today", 4, 2); ?>
 <?php layout_shows(convertDate(1)." < starttime ", "starttime < ".convertDate(2), "Tomorrow", 4, 1); ?>
 <?php for($c = 2; $c < 7; $c += 1){
