@@ -1,8 +1,6 @@
 ul {
     padding:0;
-    margin:0;
-    text-align: center;
-    list-style: none inside;
+    list-style-type: none;
 }
 
 a{        text-decoration: none; }
@@ -12,24 +10,16 @@ a:hover { text-decoration: underline; }
 #main {
     position: absolute;
     left: 12%;
-    top: 0;
     width: 88%;
-    border: 0;
-    padding: 0;
-    margin: 0;
 }
 
 /* Body */
-
-
-#body{
-    position: absolute;
-    left: 0;
-    top: 3em;
-    width: 100%
+#ShowInformation{
+    margin-top: 1em;
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
 }
-
-#ShowInformation{ border-collapse: collapse; }
 
 #ShowInformation tr td{
     border-width: .25em;
@@ -40,19 +30,18 @@ a:hover { text-decoration: underline; }
 #ShowInformation tr.Infoa td, #ShowInformation tr.Infob td{
     background: #222;
     color: #ddd;
-    border-color: gray black black gray;
-    border-style: solid;
+    border-style: outset;
 }
 
 #ShowInformation tr.Infoa td:Hover {
-    border-color: black gray gray black;
     background: #ddd;
+    border-style: inset;
     color: #222;
 }
 
 #ShowInformation tr.Infoa td:Active {
-    border-color: black gray gray black;
     background: #FFF;
+    border-style: inset;
     color: #888;
 }
 
@@ -61,42 +50,7 @@ a:hover { text-decoration: underline; }
     color: #222;
 }
 
-a img {
-    border: none;
-    margin: 0;
-}
-
-#body table{
-    width: 75%;
-    margin: 0 auto 0 auto;
-}
-
-/* Info Bar*/
-#infobar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 1em;
-    border: 0;
-    padding: 0.5em 0;
-    width: 100%;
-    background: #888;
-    color: #000;
-}
-
-#infobar ul{
-    float: right;
-    white-space: nowrap;
-}
-
-#infobar ul li{
-    display: inline;
-    padding: .2em 1em;
-}
-
-#infobar ul li a{        color: #000; }
-#infobar ul li a:hover { color: #fff; }
-
+a img { border: none; }
 
 /* sidebar */
 #sidebar{
@@ -105,22 +59,21 @@ a img {
     left: 0;
     top: 0;
     width: 12%;
-    z-index: 2;
     height: 100%;
-    background: #000;
-}
-
-#sidebar p{
-    color: #fff;
+    background: #eef;
     text-align: center;
 }
 
-#sidebar p a{              color: #aaa; }
-#sidebar p a:hover {       color: #ddd; }
-#sidebar ul li.inactive a{ color: #666; }
-#sidebar ul li.active a{   color: #ddd; }
+#infobar { margin-top: 5em;}
+#infobar ul li{         padding: .2em 1em; }
+#infobar ul li a{        color: #555; }
+#infobar ul li a:hover { color: #000; }
 
-#sidebar ul li a:hover {
-    color: #aaa;
-    text-decoration: none;
-}
+#userinfo p a{                       color: #555; }
+#userinfo p a:hover {                color: #000; }
+
+#channelinfo ul li.inactive a{          color: #aaa; }
+#channelinfo ul li.active a{            color: #000; }
+#channelinfo ul li a:hover {            color: #555; }
+#channelinfo ul li.inactive a:active {  color: #222; }
+#channelinfo ul li.active a:active {    color: #888; }

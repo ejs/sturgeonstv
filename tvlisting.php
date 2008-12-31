@@ -19,8 +19,11 @@ include("head.php")
 ?>
 <body>
     <div id="sidebar">
-        <p> <?php if ($client->name){ ?> <a href=""><?php echo $client->name;?></a> <?php } else { ?> <a href="register.php">Register</a> <?php } ?> </p>
-        <p> <?php if ($client->name){ ?> <a href="logout.php">Logout</a> <?php } else { ?> <a href="login.php">Login</a> <?php } ?> </p>
+        <div id="userinfo">
+            <p> <?php if ($client->name){ ?> <a href=""><?php echo $client->name;?></a> <?php } else { ?> <a href="register.php">Register</a> <?php } ?> </p>
+            <p> <?php if ($client->name){ ?> <a href="logout.php">Logout</a> <?php } else { ?> <a href="login.php">Login</a> <?php } ?> </p>
+        </div>
+        <div id="channelinfo">
         <ul>
 <?php foreach($client->channels as $channelData){
         if ($channelData['default?'] == 1){?>
@@ -33,8 +36,7 @@ include("head.php")
             </li>
 <?php } ?>
         </ul>
-    </div>
-    <div id="main">
+        </div>
         <div id="infobar">
             <ul>
                 <li><a href='mailto:tv.whuffie@spamgourmet.com'>Contact</a></li>
@@ -42,8 +44,9 @@ include("head.php")
                 <li><a href=''>FAQ</a></li>
             </ul>
         </div>
-        <div id="body">
-            <table id="ShowInformation">
+    </div>
+    <div id="main">
+        <table id="ShowInformation">
             <tbody class="tbody">
 <?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 2, 2); ?>
 <?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2), "Soon", 3, 2); ?>
@@ -54,8 +57,7 @@ include("head.php")
     layout_shows(convertDate($c)." < starttime ", "starttime < ".convertDate($c+1), "${tmp['mday']}  ${tmp['month']} ${tmp['year']}", 5, 0);
 } ?>
             </tbody>
-            </table>
-        </div>
+        </table>
     </div>
 </body>
 </html>
