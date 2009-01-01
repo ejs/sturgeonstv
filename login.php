@@ -8,7 +8,7 @@
     $password = $_POST['password'];
 
     function validate($username, $password){
-        $result = run_sql('SELECT username FROM user WHERE username ="'.escape($username).'" AND password = SHA1("'.escape($password).'")');
+        $result = run_sql('SELECT username FROM user WHERE username ="'.escape($username).'" AND password = SHA1(CONCAT(SHA1("'.escape($username).'"), "'.escape($password).'"))');
         return (mysql_num_rows($result) > 0);
     }
 

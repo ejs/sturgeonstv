@@ -15,7 +15,7 @@
 
     if (validate($user_name, $password, $passwordtwo)){
         # add user to database
-        $result = run_sql('INSERT user SET username ="'.escape($user_name).'", password = SHA1("'.escape($password).'"), created= NOW();');
+        $result = run_sql('INSERT user SET username ="'.escape($user_name).'", password = SHA1(CONCAT(SHA1("'.escape($user_name).'"), "'.escape($password).'")), created= NOW();');
 
         # set active channels
         foreach($_SESSION['channels'] as $channelData){
