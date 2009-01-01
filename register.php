@@ -25,6 +25,10 @@
             mysql_free_result($result);
         }
 
+        # move over show ratings
+        foreach($_SESSION["shows"] as $show=>$rating){
+            run_sql('INSERT tvshowrating SET username = "'.escape($user_name).'", showname = "'.escape($show).'", rating = '.$rating.', lastset = NOW();');
+        }
         # log user in
         setcookie("validuser", $user_name, time()+60*60*24*30);
         header('Location: tvlisting.php');
