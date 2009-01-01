@@ -172,11 +172,14 @@
             if ($null){
                 if (mysql_num_rows($result) > 0) {
                     while($row = mysql_fetch_row($result)) {
-                        $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
+                        $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2]);
                         $data["HTML Name"] = htmlentities($data["Show Name"], ENT_QUOTES);
                         $data["URL Name"] = urlencode($data["Show Name"]);
-                        $data["Rating"] = $_SESSION['shows'][$data['Show Name']] or 0;
-                        array_push($answer, $data);
+                        $data["Rating"] = $_SESSION['shows'][$data['Show Name']];
+                        if (!$data["Rating"])
+                            $data["Rating"] = 0;
+                        if($data["Rating"] >= $minrating || (!$data["Rating"] && $null))
+                            array_push($answer, $data);
                     }
                     mysql_free_result($result);
                 }
@@ -186,12 +189,16 @@
 
         public function setChannel($ChannelName, $state){
             foreach($_SESSION['channels'] as $key=>$info){
-                if ($info['ChannelName'] == $ChannelName) $_SESSION['channels'][$key]['default?'] = $state;
+                if ($info['ChannelName'] == $ChannelName)
+                    $_SESSION['channels'][$key]['default?'] = $state;
             }
         }
 
         public function setShow($name, $rating){
+            $name = str_replace("\'", "'", $name);
+            echo $name."<br />".$rating;
             $_SESSION['shows'][$name] = $rating;
+            echo "<br />".$_SESSION['shows'][$name];
         }
     }
 ?>
