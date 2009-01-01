@@ -132,9 +132,9 @@
         public function setChannel($ChannelName, $state){
             $result = run_sql('SELECT * FROM userchannels WHERE username="'.escape($this->name).'" AND channelname="'.escape($ChannelName).'";');
             if (mysql_num_rows($result) > 0)
-                run_sql('UPDATE userchannels SET state="'.escape($state).'" WHERE username = "'.escape($this->name).'" AND channelname = "'.escape($ChannelName).'";');
+                run_sql('UPDATE userchannels SET set_on=NOW(), state="'.escape($state).'" WHERE username = "'.escape($this->name).'" AND channelname = "'.escape($ChannelName).'";');
             else
-                run_sql('INSERT userchannels SET state="'.escape($state).'", username = "'.escape($this->name).'", channelname = "'.escape($ChannelName).'";');
+                run_sql('INSERT userchannels SET set_on=NOW(), state="'.escape($state).'", username = "'.escape($this->name).'", channelname = "'.escape($ChannelName).'";');
         }
     }
 
