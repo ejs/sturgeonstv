@@ -154,6 +154,7 @@
                     mysql_free_result($result);
                 }
                 $_SESSION['channels'] = $this->channels;
+                $_SESSION['shows'] = array();
             }
         }
 
@@ -174,6 +175,7 @@
                         $data = array("Show Name"=>$row[0], "Start Time"=>strtotime($row[1]), "End Time"=>strtotime($row[3]), "Channel Name"=>$row[2], "Rating"=>0);
                         $data["HTML Name"] = htmlentities($data["Show Name"], ENT_QUOTES);
                         $data["URL Name"] = urlencode($data["Show Name"]);
+                        $data["Rating"] = $_SESSION['shows'][$data['Show Name']] or 0;
                         array_push($answer, $data);
                     }
                     mysql_free_result($result);
@@ -188,6 +190,8 @@
             }
         }
 
-        public function setShow($name, $rating){ }
+        public function setShow($name, $rating){
+            $_SESSION['shows'][$name] = $rating;
+        }
     }
 ?>
