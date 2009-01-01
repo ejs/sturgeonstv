@@ -17,12 +17,10 @@
         # add user to database
         $result = run_sql('INSERT user SET username ="'.escape($user_name).'", password = SHA1("'.escape($password).'"), created= NOW();');
 
-        # set default channels
-        $result = run_sql('SELECT channelName FROM channel WHERE standard = 1;');
-        if (mysql_num_rows($result) > 0) {
-            while($row = mysql_fetch_row($result))
-                run_sql('INSERT userchannels SET username = "'.escape($user_name).'", channelname = "'.escape($row[0]).'", state=1, set_on=NOW();');
-            mysql_free_result($result);
+        # set active channels
+        foreach($_SESSION['channels'] as $channelData){
+            if ($channelData['default?'] == 1)
+                run_sql('INSERT userchannels SET username = "'.escape($user_name).'", channelname = "'.escape($channelData["ChannelName"]).'", state=1, set_on=NOW();');
         }
 
         # move over show ratings
