@@ -75,11 +75,8 @@ a img { border: none; }
 #infobar ul li a{        color: #555; }
 #infobar ul li a:hover { color: #000; }
 
-#userinfo p a{                       color: #555; }
-#userinfo p a:hover {                color: #000; }
+#userinfo p a{                  color: #555; }
+#userinfo p a:hover {           color: #000; }
 
-#channelinfo ul li.inactive a{          color: #aaa; }
-#channelinfo ul li.active a{            color: #000; }
-#channelinfo ul li a:hover {            color: #555; }
-#channelinfo ul li.inactive a:active {  color: #222; }
-#channelinfo ul li.active a:active {    color: #888; }
+#channelinfo ul li.inactive a{  color: #666; }
+#channelinfo ul li.active a{    color: #000; }
