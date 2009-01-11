@@ -85,8 +85,12 @@ function channelSwitch(name) {
     return false;
 }
 
+last = '';
+
 function setRating(rating, name) {
-    setVisibilities();
+    if (name != last)
+        setVisibilities();
+    last = name;
     var allshows = getChildClassed(document.getElementById("ShowInformation"), /tbody/).childNodes;
     for(var i in allshows) {
         if (allshows[i].className == "Show" && getChildClassed(allshows[i], /show/).textContent == name) {
