@@ -1,3 +1,5 @@
+function getObjectText(obj){ return document.all ? obj.innerText : obj.textContent; }
+
 function touch(url) {
     var tmp = new XMLHttpRequest();
     tmp.open("GET", url, true);
@@ -10,6 +12,7 @@ function getChildClassed(item, classPattern){
         if(point.className && point.className.search(classPattern) != -1)
             return point;
     }
+    window.alert('FAIL');
     return [];
 }
 
@@ -27,7 +30,7 @@ function setVisibilities() {
         else if(show.className == "Show") {
             var r = getChildClassed(show, /rating/);
             var r = r.className.charAt(r.className.length-1);
-            var channelName = getChildClassed(show, "channel").textContent;
+            var channelName = getObjectText(getChildClassed(show, "channel"));
 
             var rating = (r == 0 || minrating < r || minrating == r);
             var unrated = (r != 0 || groupflag);
@@ -49,17 +52,17 @@ function hover(item) {
     var allshows = getChildClassed(document.getElementById("ShowInformation"), "tbody").childNodes;
     for(var i in allshows) {
         var show = allshows[i];
-        if(show.className == "Show" && item.textContent != show.textContent) {
+        if(show.className == "Show") {
             var s = getTime(show, "starttime");
             var e = getTime(show, "endtime");
             if ((s <= start && start < e) || (s < end && end <= e) || (start <= s && e <= end))
                 show.style.background = "#ddd";
         }
     }
+    item.style.background = "#888";
 }
 
 function leave(item) {
-    item.style.background = "";
     var allshows = getChildClassed(document.getElementById("ShowInformation"), "tbody").childNodes;
     for(var i in allshows) {
         var show = allshows[i];
@@ -93,7 +96,7 @@ function setRating(rating, name) {
     last = name;
     var allshows = getChildClassed(document.getElementById("ShowInformation"), /tbody/).childNodes;
     for(var i in allshows) {
-        if (allshows[i].className == "Show" && getChildClassed(allshows[i], /show/).textContent == name) {
+        if (allshows[i].className == "Show" && getObjectText(getChildClassed(allshows[i], /show/)) == name) {
             var ratingdisplay = getChildClassed(allshows[i], /rating/);
             ratingdisplay.className = "ratings:"+rating;
             for(var j in [0, 1, 2, 3, 4, 5]) {
