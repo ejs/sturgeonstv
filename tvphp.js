@@ -76,6 +76,7 @@ function toggle(item) {
         item.showUnrated = item.showUnrated ? false : true;
     else
         item.showUnrated = !(item.getAttribute("unrated") == "on");
+    touch(""+location.protocol+"//"+location.host+'/toggle.php?period='+item.id+'&to='+(item.showUnrated ? "on" : "off")+"&ajax=1");
     setVisibilities();
 }
 

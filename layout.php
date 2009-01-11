@@ -1,14 +1,14 @@
 <?php
-function layout_shows($start, $end, $message, $minrating=1, $null=1)
+function layout_shows($start, $end, $message, $name, $minrating=1, $null=1)
 {
     global $client;
     $shows = $client->getShows($start, $end, $minrating, $null);
     if (!($shows or $null))
         return;
     if($null){ ?>
-            <tr class='Infoa' onclick='toggle(this);' unrated="<?php echo $null==2?"on":"off" ?>" minrating='<?php echo $minrating; ?>'>
+            <tr class='Infoa' id=<?php echo $name; ?> onclick='toggle(this);' unrated="<?php echo $null==2?"on":"off" ?>" minrating='<?php echo $minrating; ?>'>
 <?php  } else{ ?>
-            <tr class='Infob' unrated="on" minrating='<?php echo $minrating; ?>'>
+            <tr class='Infob' id=<?php echo $name; ?> unrated="on" minrating='<?php echo $minrating; ?>'>
 <?php  } ?>
                 <td colspan='4' style='text-align: center'><?php echo $message ?></td>
             </tr>

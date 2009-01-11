@@ -48,13 +48,13 @@ include("head.php")
     <div id="main">
         <table id="ShowInformation">
             <tbody class="tbody">
-<?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 2, 2); ?>
-<?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2)." AND starttime < ".convertDate(1), "Soon", 3, 2); ?>
-<?php layout_shows(convertTime(2)." < starttime ", "starttime < ".convertDate(1), "Later Today", 4, 2); ?>
-<?php layout_shows(convertDate(1)." < starttime ", "starttime < ".convertDate(2), "Tomorrow", 4, 1); ?>
+<?php layout_shows(convertTime(0)." < endtime ", "starttime < ".convertTime(0), "On Now", 'now', 2, $client->getTimeFlag("now")); ?>
+<?php layout_shows(convertTime(0)." < starttime ", "starttime < ".convertTime(2)." AND starttime < ".convertDate(1), "Soon", 'soon', 3, $client->getTimeFlag("soon")); ?>
+<?php layout_shows(convertTime(2)." < starttime ", "starttime < ".convertDate(1), "Later Today", 'later', 4, $client->getTimeFlag("later")); ?>
+<?php layout_shows(convertDate(1)." < starttime ", "starttime < ".convertDate(2), "Tomorrow", 'tomorrow', 4, $client->getTimeFlag("tomorrow")); ?>
 <?php for($c = 2; $c < 7; $c += 1){
     $tmp = getdate(time()+($c*24*60*60));
-    layout_shows(convertDate($c)." < starttime ", "starttime < ".convertDate($c+1), "${tmp['mday']}  ${tmp['month']} ${tmp['year']}", 5, 0);
+    layout_shows(convertDate($c)." < starttime ", "starttime < ".convertDate($c+1), "${tmp['mday']}  ${tmp['month']} ${tmp['year']}", "plus${c}days", 5, 0);
 } ?>
             </tbody>
         </table>

@@ -45,6 +45,16 @@
             if ($_GET) $this->setShow($_GET["show"], $_GET["rating"]);
         }
 
+        public function  getTimeFlag($period) {
+            return $period != "tomorrow" ? 2 : 1;
+        }
+
+        public function update_groups(){
+            if ($_GET) $this->setGroup($_GET["period"], $_GET["to"]);
+        }
+
+        public function setGroup($group, $to){ }
+
         public function getShowInstance($start, $end, $name){
             $channellist = array();
             foreach ($this->channels as $channel) {
@@ -71,6 +81,23 @@
         public function __construct($name){
             $this->name = $name;
             parent::__construct();
+        }
+
+        public function setGroup($group, $to){
+            $mapping = array('now'=>'onnow', 'soon'=>'soon', 'later'=>'today', 'tomorrow'=>'tomorrow');
+            run_sql('UPDATE user SET '.$mapping[$group].' = '.( $to == 'on'? 1 : 0 ).' WHERE username = "'.escape($this->name).'" ;');
+        }
+
+        public function  getTimeFlag($period) {
+            $mapping = array('now'=>'onnow', 'soon'=>'soon', 'later'=>'today', 'tomorrow'=>'tomorrow');
+            $result = run_sql('SELECT '.$mapping[$period].' FROM user WHERE username="'.escape($this->name).'" ;');
+            if (mysql_num_rows($result) > 0){
+                $row = mysql_fetch_row($result);
+                return $row[0] == '1' ? 2 : 1;
+            }
+            else {
+                return $period != "tomorrow" ? 2 : 1;
+            }
         }
 
         public function setShow($name, $rating){
